@@ -590,7 +590,7 @@
   /* TIPOGRAFIA più grande */
   .project--lmsc img[alt*="Tipografia"]{
     width: 90%;
-    max-width: 400px;
+    max-width: 300px;
   }
 
 
