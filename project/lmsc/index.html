@@ -1,45 +1,36 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ilaria Mansi - Last Minute Sotto Casa </title>
-<meta property="og:title" content="Last Minute Sotto Casa – UX Case Study">
-<meta property="og:description" content="Analisi e redesign della landing page di LMSC per migliorare chiarezza, gerarchia visiva e orientamento all’azione.">
-<meta property="og:image" content="https://ilariamansi.github.io/im.portfolio/assets/img/home/cover-lmsc.jpg">
-<meta property="og:url" content="https://ilariamansi.github.io/im.portfolio/project/lmsc/">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Ilaria Mansi Portfolio">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="assets/img/favicon/favicon.png" sizes="any">
-
-  <link rel="stylesheet" href="../../css/style.css">
-  <link rel="stylesheet" href="../../css/project.css">
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="../../assets/img/favicon/favicon.png" sizes="any">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/footer-fix.css">
+<link rel="stylesheet" href="../../css/project.css">
+  <title>Ilaria Mansi – Last Minute Sotto Casa</title>
 </head>
 
-<body>
+<body class="projectPage project--lmsc">
   <div id="top"></div>
 
-   <!-- NAV -->
- <header class="nav" role="banner">
-  <div class="container nav__inner">
+  <header class="nav" role="banner">
+  <div class="nav__inner">
     <a class="nav__logo" href="../../index.html#top" aria-label="Home">
-      <img class="logo is-mark" src="../../assets/img/logo/im-mark-light.svg" alt="IM">
-      <img class="logo is-word" src="../../assets/img/logo/im-wordmark-light.svg" alt="Ilaria Mansi">
+      <img class="logo logo--mark" src="../../assets/img/logo/im-mark-light.svg" alt="IM">
+      <img class="logo logo--word" src="../../assets/img/logo/im-wordmark-light.svg" alt="Ilaria Mansi">
     </a>
 
     <nav class="nav__links" aria-label="Menu principale">
-      <a href="../../about.html">about</a>
       <a href="../../index.html#projects">work</a>
+      <a href="../../about.html">about</a>
       <a href="../../contact.html">contact</a>
       <a href="../../cv.html">CV</a>
     </nav>
 
     <input class="navToggle" type="checkbox" id="navToggle">
-
     <label class="nav__burger" for="navToggle" aria-label="Apri menu">
       <span class="nav__burgerIcon" aria-hidden="true"></span>
     </label>
@@ -48,192 +39,143 @@
 
 <div class="navOverlay" aria-hidden="true">
   <nav class="navOverlay__panel" aria-label="Menu mobile">
-    <a href="../../about.html">about</a>
     <a href="../../index.html#projects">work</a>
+    <a href="../../about.html">about</a>
     <a href="../../contact.html">contact</a>
     <a href="../../cv.html">CV</a>
   </nav>
 </div>
 
-  <main class="project project--lmsc" id="top">
+  <main>
+    <section class="projectHero">
+      <div class="projectHero__grid">
+        <div data-parallax-text>
+          <p class="projectHero__kicker">Landing page redesign</p>
+          <h1>Last Minute Sotto Casa</h1>
+          <p class="projectHero__intro">Redesign di una landing page con focus su messaggio, gerarchia visiva e chiarezza della conversione.</p>
 
-    <!-- HERO -->
-    <section class="pHero" aria-label="Last Minute Sotto Casa">
-      <figure class="pHero__media">
-        <img src="../../assets/img/projects/lmsc/cover-lmsc.svg" alt="Cover Last Minute Sotto Casa">
-      </figure>
-
-      <div id="start"></div>
-      
-      <div class="pWrap">
-        <div class="pHero__copy">
-          <h1 class="pTitle">Last Minute Sotto Casa</h1>
-          <p class="pSubtitle">UX case study – redesign landing page</p>
-
-          <p class="pLead">
-            Analisi e riprogettazione della landing page di LMSC, piattaforma italiana che combatte lo spreco alimentare
-            favorendo il recupero del cibo invenduto presso attività locali.
-          </p>
-
-          <div class="pMeta" aria-label="Strumenti e output">
-            <span class="pill">UX analysis</span>
-            <span class="pill">Landing redesign</span>
-            <span class="pill">Figma</span>
-            <span class="pill">Prototype</span>
+          <div class="projectTags">
+            <span>Landing page</span>
+            <span>Redesign</span>
+            <span>Visual hierarchy</span>
+            <span>UI</span>
           </div>
 
-          <div class="pCtaRow">
-            <a class="btn btn--primary" href="../../assets/pdf/lmsc.pdf" target="_blank" rel="noopener">
-              SCARICA IL PDF
-            </a>
-            <a class="btn btn--secondary" href="../../index.html#projects">
-              TORNA AI PROGETTI
-            </a>
+          <div class="projectActions">
+            <a class="button button--dark" href="../../assets/pdf/lmsc.pdf" target="_blank" rel="noopener">PDF completo</a>
+            <a class="button button--ghost" href="../../index.html#projects">Torna ai progetti</a>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- INTRO -->
-    <section class="pSection" aria-label="Presentazione del progetto">
-      <div class="pWrap pWrap--narrow">
-        <div class="pIntroCenter">
-          <p>
-            Questo progetto nasce con l’obiettivo di analizzare e riprogettare la landing page di Last Minute Sotto Casa,
-            una piattaforma italiana che combatte lo spreco alimentare favorendo il recupero del cibo invenduto presso negozi e attività locali.
-          </p>
-          <p>
-            Fondata a Torino nel 2014, LMSC crea un ponte tra negozianti e cittadini per ridurre lo spreco alimentare,
-            trasformando le eccedenze in opportunità di risparmio.
-          </p>
-          <p class="pWrap pQuote">“Un mondo in cui il cibo non si butta, ma viene valorizzato.”</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COME FUNZIONA + TARGET -->
-    <section class="pSection" aria-label="Funzionamento e Target">
-      <div class="pWrap">
-        <div class="pTwoCol">
-          <div>
-            <h2 class="pH2">Come funziona</h2>
-            <ol class="pList">
-              <li>I negozi pubblicano offerte last minute.</li>
-              <li>Gli utenti ricevono notifiche nelle vicinanze.</li>
-              <li>Ritiro in negozio con pagamento sul posto.</li>
-            </ol>
-          </div>
-
-        <div>
-           <h2 class="pH2">Target</h2>
-            <ul class="pList">
-              <li>Utenti attenti a risparmio e sostenibilità</li>
-              <li>Esercenti locali con eccedenze giornaliere</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ANALISI + REDESIGN -->
-    <section class="pSection" aria-label="Analisi e Redesign">
-      <div class="pWrap">
-        <header class="pHeader">
-          <h2 class="pH2">Analisi e redesign</h2>
-          <p class="pText pText--muted">Sintesi visiva della landing originale e della proposta di redesign.</p>
-        </header>
-
-        <figure class="pFigure">
-          <img src="../../assets/img/projects/lmsc/analisi%20landing%20page.svg" alt="Analisi landing page originale e redesign">
-          <figcaption class="pFigure__cap">
-          </figcaption>
+        <figure class="projectHero__cover" data-parallax-text>
+          <img src="../../assets/img/projects/lmsc/cover-lmsc.svg" alt="Cover Last Minute Sotto Casa">
         </figure>
       </div>
     </section>
 
-    <!-- DESIGN SYSTEM -->
-    <section class="pSection" aria-label="Design system">
-      <div class="pWrap">
-        <header class="pHeader">
-          <h2 class="pH2">Design system</h2>
-          <p class="pText pText--muted">Palette · Tipografia </p>
-        </header>
-
-        <div class="pTwoCol pStack2">
-          <figure class="pFigure pFigure--soft pFigure--ds">
-            <img src="../../assets/img/projects/lmsc/palette.png" alt="Palette colori LMSC">
-          </figure>
-
-          <figure class="pFigure pFigure--soft pFigure--ds">
-            <img src="../../assets/img/projects/lmsc/tipografia.png" alt="Tipografia LMSC">
-          </figure>
+    <section class="caseIntro">
+      <div class="caseIntro__grid">
+        <h2 data-parallax-text>Il lavoro.</h2>
+        <div data-parallax-text>
+          <p>La landing originale aveva un problema di immediatezza: il valore del servizio e l’azione principale non emergevano con abbastanza forza. Il lavoro si è concentrato su chiarezza, ritmo e lettura veloce.</p>
+          <p>Ho trattato la pagina come un percorso: prima il messaggio, poi il funzionamento, poi la fiducia e infine la call to action.</p>
         </div>
       </div>
     </section>
 
-    <!-- RISULTATO -->
-    <section class="pSection" aria-label="Risultato">
-      <div class="pWrap">
-        <div class="pUi pUi--single">
-          <div class="pUi__copy">
-            <h2 class="pH2">Risultato</h2>
-            <p class="pText">
-              Attraverso la nuova landing page miro a migliorare la chiarezza del servizio, rafforzare la comunicazione dei valori e guidare l’utente verso l’azione,
-              dimostrando come una UX strategy mirata possa generare impatto reale.
-            </p>
+    <div class="caseFlow">
 
-            <div class="pUi__cta">
-              <a class="btn btn--primary" href="../../assets/pdf/lmsc.pdf" target="_blank" rel="noopener">
-                SCARICA IL PDF
-              </a>
-            </div>
+      <section class="caseStep">
+        <div class="caseStep__inner">
+          <figure class="caseStep__media" data-parallax-text>
+            <img src="../../assets/img/projects/lmsc/analisi landing page.svg" alt="Analisi landing page LMSC">
+          </figure>
+
+          <div class="caseStep__text" data-parallax-text>
+            <p class="caseStep__label">01 · analisi</p>
+            <h2>Capire cosa non funzionava.</h2>
+            <p>Ho individuato le criticità principali della landing: gerarchia poco incisiva, messaggio non abbastanza diretto e sezioni da riorganizzare.</p>
+            <div class="caseStep__note">Cosa mostra l’immagine: analisi della pagina di partenza e dei punti da migliorare.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="caseStep caseStep--reverse">
+        <div class="caseStep__inner">
+          <figure class="caseStep__media" data-parallax-text>
+            <img src="../../assets/img/projects/lmsc/palette.png" alt="Palette LMSC">
+          </figure>
+
+          <div class="caseStep__text" data-parallax-text>
+            <p class="caseStep__label">02 · identità</p>
+            <h2>Rendere il tono più riconoscibile.</h2>
+            <p>La palette è stata pensata per rendere la comunicazione più accessibile e coerente, senza perdere immediatezza.</p>
+            <div class="caseStep__note">Cosa mostra l’immagine: direzione cromatica scelta per sostenere gerarchia e riconoscibilità.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="caseStep">
+        <div class="caseStep__inner">
+          <figure class="caseStep__media" data-parallax-text>
+            <img src="../../assets/img/projects/lmsc/tipografia.png" alt="Tipografia LMSC">
+          </figure>
+
+          <div class="caseStep__text" data-parallax-text>
+            <p class="caseStep__label">03 · leggibilità</p>
+            <h2>Tipografia come gerarchia.</h2>
+            <p>Ho lavorato sulla tipografia per rendere più chiara la scansione dei contenuti e guidare meglio lo sguardo dell’utente.</p>
+            <div class="caseStep__note">Cosa mostra l’immagine: scelte tipografiche e ruolo dei testi nella struttura della landing.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <section class="caseEnd">
+      <div class="caseEnd__grid">
+        <h2 data-parallax-text>Risultato.</h2>
+        <div data-parallax-text>
+          <p>Il redesign rende la landing più semplice da attraversare: chi arriva sulla pagina capisce prima il servizio, il valore e il passo successivo.</p>
+          <div class="projectActions">
+            <a class="button button--dark" href="../../assets/pdf/lmsc.pdf" target="_blank" rel="noopener">Apri il PDF completo</a>
+            <a class="button button--ghost" href="../../index.html#projects">Altri progetti</a>
           </div>
         </div>
       </div>
     </section>
-
   </main>
 
-  <div class="backTop">
-  <a href="#start">
-    <span class="backTop__arrow">^</span>
-    <span class="backTop__text">torna su</span>
-  </a>
-</div>
+  <footer class="siteFooter">
+  <div class="siteFooter__visual" aria-hidden="true">
+    <img src="../../assets/img/scene/sea-bg.png" alt="">
+  </div>
 
-  <!-- FOOTER -->
-<footer class="footer footer--simple" id="contact" aria-labelledby="footerTitle">
-  <img class="footer__arch" src="../../assets/img/home/art.jpg" alt="" aria-hidden="true">
-
-  <div class="footer__inner">
-    <h2 id="footerTitle">Entriamo in contatto</h2>
-    <p class="footer__text">
-      Se vuoi parlarmi di un progetto o semplicemente scrivermi, <br> trovi tutto nella pagina contatti.
-    </p>
-
-    <div class="footer__actions">
-      <a class="btn btn--primary" href="../../contact.html">VAI AI CONTATTI</a>
+  <div class="siteFooter__inner">
+    <div class="siteFooter__cta">
+      <p class="eyebrow eyebrow--light">Contact</p>
+      <h2>Hai un progetto o un’opportunità?</h2>
     </div>
 
-    <div class="footer__social" aria-label="Social">
-      <a class="iconBtn" href="https://www.linkedin.com/in/ilaria-mansi/" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <div class="siteFooter__actions">
+      <a class="button button--light" href="../../contact.html">Vai ai contatti</a>
+    </div>
+
+    <p class="siteFooter__brand">Ilaria Mansi</p>
+
+    <div class="siteFooter__social">
+      <a class="siteFooter__socialLink" href="https://www.linkedin.com/in/ilaria-mansi/" target="_blank" rel="noopener" aria-label="LinkedIn">
         <img src="../../assets/img/home/linkedin.png" alt="">
       </a>
-
-      <a class="iconBtn" href="https://github.com/ilariamansi/im.portfolio.git" target="_blank" rel="noopener" aria-label="GitHub">
+      <a class="siteFooter__socialLink" href="https://github.com/ilariamansi/im.portfolio.git" target="_blank" rel="noopener" aria-label="GitHub">
         <img src="../../assets/img/home/github.png" alt="">
       </a>
     </div>
 
-    <div class="footer__meta">
-      <a class="footer__copy" href="#top">ILARIA MANSI</a>
-      <span class="footer__sep" aria-hidden="true">·</span>
-      <span class="footer__copy">© 2026</span>
-    </div>
+    <p class="siteFooter__copy">© 2026 · Ilaria Mansi</p>
   </div>
 </footer>
 
-
-
+  <script src="../../js/main.js"></script>
 </body>
 </html>

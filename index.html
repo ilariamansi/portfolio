@@ -1,44 +1,36 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ilaria Mansi – Home</title>
- <meta property="og:title" content="Ilaria Mansi – Junior UX/UI Designer">
-<meta property="og:description" content="Portfolio UX/UI con case study di redesign, ricerca utenti e progettazione di interfacce digitali.">
-<meta property="og:image" content="https://ilariamansi.github.io/im.portfolio/assets/img/preview/cover-preview.png">
-<meta property="og:url" content="https://ilariamansi.github.io/im.portfolio/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Ilaria Mansi Portfolio">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/img/favicon/favicon.png" sizes="any">
-
+<link rel="stylesheet" href="css/style.css">
+  <title>Ilaria Mansi – Visual & UX Designer</title>
+  <meta name="description" content="Portfolio di Ilaria Mansi, junior designer tra UX/UI, visual design e contenuto digitale.">
+  <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body class="is-home">
- <div id="top"></div> 
-  
-  <!-- NAV -->
- <header class="nav" role="banner">
-  <div class="container nav__inner">
-    <a class="nav__logo" href="#top" aria-label="Home">
-      <img class="logo is-mark" src="assets/img/logo/im-mark-light.svg" alt="IM">
-      <img class="logo is-word" src="assets/img/logo/im-wordmark-light.svg" alt="Ilaria Mansi">
+  <div id="top"></div>
+
+  <header class="nav" role="banner">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html#top" aria-label="Home">
+      <img class="logo logo--mark" src="assets/img/logo/im-mark-light.svg" alt="IM">
+      <img class="logo logo--word" src="assets/img/logo/im-wordmark-light.svg" alt="Ilaria Mansi">
     </a>
 
     <nav class="nav__links" aria-label="Menu principale">
-      <a href="about.html">about</a>
       <a href="index.html#projects">work</a>
+      <a href="about.html">about</a>
       <a href="contact.html">contact</a>
       <a href="cv.html">CV</a>
     </nav>
 
     <input class="navToggle" type="checkbox" id="navToggle">
-
     <label class="nav__burger" for="navToggle" aria-label="Apri menu">
       <span class="nav__burgerIcon" aria-hidden="true"></span>
     </label>
@@ -47,200 +39,177 @@
 
 <div class="navOverlay" aria-hidden="true">
   <nav class="navOverlay__panel" aria-label="Menu mobile">
-    <a href="about.html">about</a>
     <a href="index.html#projects">work</a>
+    <a href="about.html">about</a>
     <a href="contact.html">contact</a>
     <a href="cv.html">CV</a>
   </nav>
 </div>
-  
 
- <!-- HERO (sezione separata, mantiene arch come sfondo) -->
-<section class="heroConcept">
-  <div class="heroConcept__media">
-    <img
-      src="assets/img/home/art.jpg"
-      alt="Scenario ispirato alla Nascita di Venere"
-      class="heroConcept__image"
-    />
-    <div class="heroConcept__overlay"></div>
+  <section class="artHero" aria-label="Ingresso portfolio">
+    <div class="artHero__sticky">
+      <div class="artHero__scene" aria-hidden="true">
+        <img class="artHero__layer artHero__sea" src="assets/img/scene/sea-bg.png" alt="">
+        <img class="artHero__layer artHero__shell" src="assets/img/scene/shell.png" alt="">
+        <img class="artHero__layer artHero__trees" src="assets/img/scene/trees.png" alt="">
+      </div>
 
-    <div class="heroConcept__intro container">
-      <div class="heroConcept__introInner">
-        <h1 class="heroConcept__title">Ilaria Mansi</h1>
-        <p class="heroConcept__sub">Junior UX/UI Designer</p>
-        <p class="heroConcept__statement">
-          Trasformo idee in esperienze digitali intuitive e coinvolgenti
-        </p>
-         <div class="heroConcept__cta">
-        <a class="btn btn--primary" href="#projects">SCOPRI I PROGETTI</a>
+      <div class="artHero__topline">
+        <span>Visual & UX Designer</span>
+      </div>
+
+      <div class="artHero__copy">
+        <p class="eyebrow">Ilaria Mansi</p>
+        <h1>Visual design meets UX clarity.</h1>
+        <p>Progetto interfacce e identità digitali dove estetica e chiarezza lavorano insieme.</p>
+      </div>
+
+      <div class="artHero__text artHero__text--one">
+        <p>Una scena quasi vuota, dove luce, spazio e atmosfera diventano il centro dell’immagine.</p>
+      </div>
+
+      <div class="artHero__text artHero__text--two">
+        <p>Nel design cerco lo stesso equilibrio: togliere rumore, creare ordine e guidare lo sguardo.</p>
+      </div>
+
+      <div class="artHero__text artHero__text--three">
+        <p>Benvenuto nel mio spazio progettuale, dove estetica e struttura lavorano insieme.</p>
+      </div>
+
+      <div class="artHero__scroll" aria-hidden="true"><span>scroll</span></div>
+    </div>
+  </section>
+
+  <main class="homeMain">
+    <section class="homeSection homeAbout">
+      <div class="container homeAbout__grid">
+        <div class="homeAbout__copy revealBlock">
+          <h2>Un approccio visivo, ma concreto.</h2>
+          <p>Arrivo da esperienze a contatto con le persone. Nel design porto la stessa attenzione: capire cosa crea distanza, mettere ordine e rendere le informazioni più chiare.</p>
+
+          <div class="homeActions">
+            <a class="homeButton homeButton--dark" href="about.html">About me</a>
+            <a class="homeButton homeButton--ghost" href="cv.html">CV</a>
+          </div>
         </div>
-        
+
+        <figure class="homeAbout__photo revealBlock">
+          <img src="assets/img/home/foto.png" alt="Ritratto di Ilaria Mansi">
+        </figure>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="heroConcept__panelWrap">
-  <div class="heroConcept__panel">
-    <p class="heroConcept__panelKicker">Il concept</p>
+    <section class="homeSection homeProjects homeSection--tone" id="projects">
+      <div class="container">
+        <div class="homeSectionHead revealBlock">
+          <h2>Progetti da vedere subito.</h2>
+          <p>Una selezione di lavori che raccontano il mio modo di muovermi tra UX/UI, visual identity, contenuto e redesign.</p>
+        </div>
 
-    <h2 class="heroConcept__panelTitle">
-     Un’identità visiva costruita tra struttura e narrazione
-    </h2>
+        <div class="homeGallery">
+          <article class="homeProject revealBlock">
+            <a class="homeProject__image" href="project/ecodream/index.html">
+              <img src="assets/img/home/cover-ecodream.jpg" alt="Anteprima progetto Ecodream">
+            </a>
+            <div class="homeProject__content">
+              <h3>Ecodream</h3>
+              <p>Redesign UX/UI di un e-commerce sostenibile: ricerca, architettura informativa, wireframe e UI.</p>
+              <a href="project/ecodream/index.html">Apri progetto →</a>
+            </div>
+          </article>
 
-    <div class="heroConcept__panelText">
-      <p>
-        Questo portfolio nasce dall’idea di costruire non solo un sito, ma uno spazio coerente con il mio modo di progettare: chiaro nella struttura, ma anche riconoscibile dal punto di vista visivo.
-      </p>
+          <article class="homeProject homeProject--reverse revealBlock">
+            <a class="homeProject__image" href="project/lmsc/index.html">
+              <img src="assets/img/home/cover-lmsc.jpg" alt="Anteprima progetto Last Minute Sotto Casa">
+            </a>
+            <div class="homeProject__content">
+              <h3>Last Minute Sotto Casa</h3>
+              <p>Redesign di una landing page con focus su gerarchia visiva, chiarezza del messaggio e conversione.</p>
+              <a href="project/lmsc/index.html">Apri progetto →</a>
+            </div>
+          </article>
 
-      <p>
-        La <strong>copertina</strong> è ispirata alla <em>Nascita di Venere</em> di Botticelli, nella reinterpretazione di José Manuel Ballester, in cui i personaggi scompaiono e resta soltanto l’ambiente. Ho scelto questa immagine perché non volevo una decorazione, ma uno spazio d’ingresso: una scena visiva che suggerisse subito l’idea di attraversare un luogo, più che di entrare in una semplice pagina.
-      </p>
+          <article class="homeProject revealBlock">
+            <a class="homeProject__image" href="project/lookbook/index.html">
+              <img src="assets/img/home/cover-lookbook.jpg" alt="Anteprima progetto LookBook">
+            </a>
+            <div class="homeProject__content">
+              <h3>LookBook</h3>
+              <p>Concept editoriale e digitale: tono, contenuto, direzione visiva e struttura narrativa.</p>
+              <a href="project/lookbook/index.html">Apri progetto →</a>
+            </div>
+          </article>
 
-      <p>
-         Anche il <strong>logo</strong> segue la stessa logica. È un monogramma costruito sulle iniziali <strong>I</strong> e <strong>M</strong>: la I richiama una colonna classica, mentre la M ha linee più morbide ispirate allo stile Liberty. Insieme, queste forme tengono in equilibrio rigore e sensibilità visiva, due aspetti che sento centrali anche nel mio approccio al design.
-      </p>
-
-      <p>
-        <p>
-   La <strong>palette</strong> riprende i toni della copertina per mantenere continuità tra immagine e interfaccia. Ho scelto colori profondi e desaturati, senza sovraccaricare visivamente la navigazione.
-</p>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- SALOTTO (sezione separata, statica, senza step/opacity) -->
-<section class="salottoSection" aria-label="Salotto">
-  <div class="container salotto">
-    
-    <div class="salotto__stack">
-      <h2 class="salotto__h2">Perché ho scelto il design</h2>
-
-      <p class="salotto__p">
-        Arrivo da anni di lavoro a contatto con le persone e ho imparato che, quando qualcosa non è chiaro, si crea distanza.
-      </p>
-
-      <p class="salotto__p">
-        Nel digitale porto lo stesso sguardo: parto dal problema, metto ordine e progetto percorsi semplici e leggibili.
-      </p>
-
-      <p class="salotto__p">
-        Amo l’arte in tutte le sue forme, e nello UX/UI ho trovato il punto in cui estetica e struttura riescono davvero a incontrarsi.
-      </p>
-      <div class="salotto__cta">
-        <a class="btn btn--secondary" href="about.html">LA MIA STORIA</a>
+          <article class="homeProject homeProject--reverse revealBlock">
+            <a class="homeProject__image" href="project/meditactive/index.html">
+              <img src="assets/img/home/cover-meditactive.jpg" alt="Anteprima progetto MeditActive">
+            </a>
+            <div class="homeProject__content">
+              <h3>MeditActive</h3>
+              <p>App concept e UI design: identità visiva, interfaccia e comunicazione digitale.</p>
+              <a href="project/meditactive/index.html">Apri progetto →</a>
+            </div>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <figure class="salotto__portrait" aria-hidden="true">
-      <img src="assets/img/home/foto.png" alt="">
-    </figure>
- </div>
-</section>
+    <section class="homeSection homeRoles">
+      <div class="container">
+        <div class="homeSectionHead revealBlock">
+          <h2>Dove posso essere utile.</h2>
+          <p>Il mio profilo funziona soprattutto dove UX, visual consistency, contenuto e sensibilità di brand si incontrano.</p>
+        </div>
 
-<!-- CONTENUTO NORMALE DOPO -->
-<main class="content">
-  <section id="projects" class="projects" aria-label="Projects">
-    <div class="container">
-      <h2 class="projects__title">Progetti</h2>
-    </div>
+        <div class="homeRoles__grid">
+          <article class="revealBlock">
+            <small>Primary</small>
+            <h3>Junior UX/UI Designer</h3>
+            <p>Flow, wireframe, prototipi e interfacce leggibili.</p>
+          </article>
 
+          <article class="revealBlock">
+            <small>Adjacent</small>
+            <h3>Visual / Digital Designer</h3>
+            <p>Gerarchia, composizione e coerenza visiva.</p>
+          </article>
 
-      <section class="projectStep">
-  <div class="container">
-    <article class="projectCard">
-      <a class="projectCard__media" href="project/ecodream/">
-        <img src="assets/img/home/cover-ecodream.jpg" alt="Ecodream">
-      </a>
-      <div class="projectCard__info">
-        <h3 class="projectCard__name">Ecodream</h3>
-        <p class="projectCard__meta">UX/UI case study</p>
-        <a class="btn btn--primary" href="project/ecodream/">SCOPRI IL PROGETTO</a>
+          <article class="revealBlock">
+            <small>Adjacent</small>
+            <h3>Content / UI Writing</h3>
+            <p>Microcopy e contenuti che aiutano a orientare l’utente.</p>
+          </article>
+        </div>
       </div>
-    </article>
-  </div>
-</section>
-
-<section class="projectStep">
-  <div class="container">
-    <article class="projectCard">
-      <a class="projectCard__media" href="project/lmsc/">
-        <img src="assets/img/home/cover-lmsc.jpg" alt="Last Minute Sotto Casa">
-      </a>
-      <div class="projectCard__info">
-        <h3 class="projectCard__name">Last Minute Sotto Casa</h3>
-        <p class="projectCard__meta">Landing page redesign</p>
-        <a class="btn btn--primary" href="project/lmsc/">SCOPRI IL PROGETTO</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="projectStep">
-  <div class="container">
-    <article class="projectCard">
-      <a class="projectCard__media" href="project/lookbook/">
-        <img src="assets/img/home/cover-lookbook.jpg" alt="LookBook">
-      </a>
-      <div class="projectCard__info">
-        <h3 class="projectCard__name">LookBook</h3>
-        <p class="projectCard__meta">Concept editoriale & UI writing</p>
-        <a class="btn btn--primary" href="project/lookbook/">SCOPRI IL PROGETTO</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="projectStep">
-  <div class="container">
-    <article class="projectCard">
-      <a class="projectCard__media" href="project/meditactive/">
-        <img src="assets/img/home/cover-meditactive.jpg" alt="MeditActive">
-      </a>
-      <div class="projectCard__info">
-        <h3 class="projectCard__name">MeditActive</h3>
-        <p class="projectCard__meta">Concept app & UI design</p>
-        <a class="btn btn--primary" href="./project/meditactive/">SCOPRI IL PROGETTO</a>
-      </div>
-    </article>
-  </div>
-</section>
-
+    </section>
   </main>
 
-<footer class="footer footer--simple" id="contact" aria-labelledby="footerTitle">
-  <img class="footer__arch" src="assets/img/home/art.jpg" alt="" aria-hidden="true">
+  <footer class="siteFooter">
+  <div class="siteFooter__visual" aria-hidden="true">
+    <img src="assets/img/scene/sea-bg.png" alt="">
+  </div>
 
-  <div class="footer__inner">
-    <h2 id="footerTitle">Entriamo in contatto</h2>
-    <p class="footer__text">
-      Se vuoi parlarmi di un progetto o semplicemente scrivermi, <br> trovi tutto nella pagina contatti.
-    </p>
+  <div class="siteFooter__inner">
+    <img class="siteFooter__logo" src="assets/img/logo/im-wordmark-light.svg" alt="Ilaria Mansi">
 
-    <div class="footer__actions">
-      <a class="btn btn--primary" href="contact.html">VAI AI CONTATTI</a>
+    <div class="siteFooter__content">
+      <h2>Entriamo in contatto.</h2>
     </div>
 
-    <div class="footer__social" aria-label="Social">
-  <a class="iconBtn" href="https://www.linkedin.com/in/ilaria-mansi/" target="_blank" rel="noopener" aria-label="LinkedIn">
-    <img src="assets/img/home/linkedin.png" alt="">
-  </a>
+    <div class="siteFooter__actions">
+      <a class="button button--light" href="contact.html">Vai ai contatti</a>
+      <a class="siteFooter__linkedin" href="https://www.linkedin.com/in/ilaria-mansi/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <img src="assets/img/home/linkedin.png" alt="">
+      </a>
+    </div>
 
-  <a class="iconBtn" href="https://github.com/ilariamansi/im.portfolio.git" target="_blank" rel="noopener" aria-label="GitHub">
-    <img src="assets/img/home/github.png" alt="">
-  </a>
-</div>
-
-   <div class="footer__meta">
-  <a class="footer__copy" href="#top">ILARIA MANSI</a>
-  <span class="footer__sep" aria-hidden="true">·</span>
-  <span class="footer__copy">© 2026</span>
-</div>
+    <div class="siteFooter__meta">
+      <a href="#top">Ilaria Mansi</a>
+      <span>© 2026</span>
+    </div>
   </div>
 </footer>
 
-  
+  <script src="js/main.js"></script>
 </body>
 </html>
-<!-- deploy -->
