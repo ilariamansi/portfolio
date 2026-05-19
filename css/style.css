@@ -137,8 +137,6 @@ textarea {
     align-items: center;
     padding: 0 16px;
     border-radius: 999px;
-    border: 1px solid rgba(251, 245, 233, .55);
-    background: rgba(251, 245, 233, .46);
     backdrop-filter: blur(16px) saturate(130%);
     -webkit-backdrop-filter: blur(16px) saturate(130%);
     box-shadow: 0 12px 34px rgba(21, 26, 24, .045);
@@ -149,7 +147,7 @@ textarea {
 }
 
 .nav__links a:hover {
-    background: rgba(251, 245, 233, .74);
+    background: rgb(251, 245, 233);
     border-color: rgba(143, 75, 57, .26);
     transform: translateY(-1px)
 }

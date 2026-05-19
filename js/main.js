@@ -79,24 +79,95 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
   items.forEach(item=>observer.observe(item));
 })();
 
-(function parallaxVisuals(){
-  const items=[...document.querySelectorAll('[data-parallax-visual]')];
-  if(!items.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+
+(function caseStudyMedia(){
+  const steps=[...document.querySelectorAll('.caseStep')];
+  if(!steps.length)return;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let ticking=false;
+
   function clamp(n,min,max){return Math.min(Math.max(n,min),max)}
-  function render(){
-    ticking=false;
-    const vh=window.innerHeight || 1;
-    items.forEach(item=>{
-      const rect=item.getBoundingClientRect();
-      const speed=parseFloat(item.dataset.speed || '0.06');
-      const center=rect.top + rect.height/2;
-      const delta=(center - vh/2) * -speed;
-      item.style.setProperty('--parallax-y', `${clamp(delta,-42,42).toFixed(2)}px`);
+  function stickyTop(){return window.innerWidth<=900 ? 0 : 128}
+  function panWindowHeight(){
+    // Finestra grande ma non più alta del viewport: resta leggibile accanto al testo.
+    return Math.min(Math.max(560, window.innerHeight - stickyTop() - 92), 820);
+  }
+
+  function getRenderedHeight(img, mediaWidth){
+    const ratio=(img.naturalWidth && img.naturalHeight) ? img.naturalWidth/img.naturalHeight : 1.6;
+    return mediaWidth / ratio;
+  }
+
+  function prepare(){
+    steps.forEach(step=>{
+      const media=step.querySelector('.caseStep__media');
+      const img=media && media.querySelector('img');
+      if(!media || !img)return;
+
+      step.classList.remove('is-pannable');
+      step.style.removeProperty('--pan-window');
+      step.style.removeProperty('--pan-extra');
+      img.style.setProperty('--img-y','0px');
+
+      if(window.innerWidth<=900 || reduce)return;
+
+      const mediaWidth=media.clientWidth;
+      const windowH=panWindowHeight();
+      const renderedH=getRenderedHeight(img, mediaWidth);
+      const extra=Math.max(0, renderedH - windowH);
+
+      // Solo immagini realmente più alte della finestra scorrono.
+      if(extra > 36){
+        step.classList.add('is-pannable');
+        step.style.setProperty('--pan-window', `${windowH.toFixed(2)}px`);
+        step.style.setProperty('--pan-extra', `${extra.toFixed(2)}px`);
+      }
     });
   }
-  function request(){if(!ticking){ticking=true;requestAnimationFrame(render)}}
-  render();
-  window.addEventListener('scroll',request,{passive:true});
-  window.addEventListener('resize',request,{passive:true});
+
+  function render(){
+    ticking=false;
+    if(window.innerWidth<=900 || reduce)return;
+
+    steps.forEach(step=>{
+      if(!step.classList.contains('is-pannable'))return;
+
+      const media=step.querySelector('.caseStep__media');
+      const img=media && media.querySelector('img');
+      if(!media || !img)return;
+
+      const rect=step.getBoundingClientRect();
+      const extra=parseFloat(getComputedStyle(step).getPropertyValue('--pan-extra')) || 0;
+      if(extra<=0)return;
+
+      // Progress parte quando la sezione arriva sotto la nav/sticky top:
+      // all'inizio vedi la parte alta dell'immagine, poi scorre SOLO l'immagine.
+      const start=stickyTop();
+      const progress=clamp((start - rect.top) / extra, 0, 1);
+      const move=-extra * progress;
+
+      img.style.setProperty('--img-y', `${move.toFixed(2)}px`);
+    });
+  }
+
+  function request(){
+    if(!ticking){
+      ticking=true;
+      requestAnimationFrame(render);
+    }
+  }
+
+  function refresh(){
+    prepare();
+    render();
+  }
+
+  window.addEventListener('load', refresh);
+  window.addEventListener('resize', refresh, {passive:true});
+  window.addEventListener('scroll', request, {passive:true});
+  steps.forEach(step=>{
+    const img=step.querySelector('.caseStep__media img');
+    if(img && !img.complete) img.addEventListener('load', refresh, {once:true});
+  });
+  refresh();
 })();

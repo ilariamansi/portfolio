@@ -1,255 +1,58 @@
-.projectPage {
-    background: var(--paper)
-}
+.projectPage{background:var(--paper)}
+.projectHero{width:min(var(--max),100%);margin:0 auto;padding:calc(var(--nav-h) + 86px) var(--pad-x) clamp(72px,9vw,132px)}
+.projectHero__grid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.12fr);gap:clamp(34px,7vw,112px);align-items:end}
+.projectHero__kicker{margin:0 0 14px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.projectHero h1{margin:0;font-family:var(--font-serif);font-weight:400;font-size:clamp(62px,8.8vw,148px);line-height:.82;letter-spacing:-.09em}
+.projectHero__intro{margin:22px 0 0;max-width:64ch;font-size:17px;line-height:1.78;color:var(--muted)}
+.projectHero__cover{margin:0;overflow:visible;background:transparent;box-shadow:none}
+.projectHero__cover img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.projectTags{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+.projectTags span{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.24);border:1px solid rgba(21,26,24,.1);font-size:12px;font-weight:700;color:rgba(21,26,24,.62)}
+.projectActions{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
+.caseIntro{width:min(var(--max),100%);margin:0 auto;padding:clamp(78px,9vw,132px) var(--pad-x);border-top:1px solid rgba(21,26,24,.1)}
+.caseIntro__grid{display:grid;grid-template-columns:minmax(280px,.72fr) minmax(0,1fr);gap:clamp(32px,7vw,112px);align-items:start}
+.caseIntro h2{margin:0;font-family:var(--font-serif);font-weight:400;font-size:clamp(42px,5.6vw,92px);line-height:.9;letter-spacing:-.075em}
+.caseIntro p{margin:0;max-width:820px;font-size:17px;line-height:1.88;color:var(--muted)}
+.caseIntro p+p{margin-top:18px}
 
-.projectHero {
-    width: min(var(--max), 100%);
-    margin: 0 auto;
-    padding: calc(var(--nav-h) + 86px) var(--pad-x) clamp(72px, 9vw, 132px)
-}
+.caseStep{--case-sticky-top:128px;--pan-window:74vh;--pan-extra:0px;padding:clamp(86px,10vw,160px) var(--pad-x)}
+.caseStep:nth-child(even){background:var(--paper-2)}
+.caseStep__inner{width:min(var(--max),100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.32fr) minmax(320px,.58fr);gap:clamp(34px,6vw,96px);align-items:start}
 
-.projectHero__grid {
-    display: grid;
-    grid-template-columns: minmax(0, .72fr) minmax(0, 1.12fr);
-    gap: clamp(34px, 7vw, 112px);
-    align-items: end
-}
+/* Nei layout invertiti il testo rimane nella colonna stretta e l'immagine resta grande. */
+.caseStep--reverse .caseStep__inner{grid-template-columns:minmax(320px,.58fr) minmax(0,1.32fr)}
+.caseStep--reverse .caseStep__media{order:2}
+.caseStep--reverse .caseStep__text{order:1}
 
-.projectHero__kicker {
-    margin: 0 0 14px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--accent)
-}
+/* Base: immagine grande, pulita, senza card e senza crop casuale. */
+.caseStep__media{margin:0;position:relative;overflow:visible;background:transparent;box-shadow:none;border:0;width:100%;align-self:start}
+.caseStep__media img{display:block;width:100%;height:auto;max-width:none;max-height:calc(100vh - 190px);object-fit:contain;object-position:center top;transform:none;will-change:auto}
 
-.projectHero h1 {
-    margin: 0;
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: clamp(62px, 8.8vw, 148px);
-    line-height: .82;
-    letter-spacing: -.09em
-}
+/* Solo per immagini lunghe: diventa una finestra fissa. Parte SEMPRE dall'alto e scorre solo l'immagine interna. */
+.caseStep.is-pannable{min-height:calc(100vh + var(--pan-extra) + 96px)}
+.caseStep.is-pannable .caseStep__inner{position:sticky;top:var(--case-sticky-top);align-items:start}
+.caseStep.is-pannable .caseStep__media{height:var(--pan-window);overflow:hidden}
+.caseStep.is-pannable .caseStep__media img{max-height:none;transform:translate3d(0,var(--img-y,0px),0);will-change:transform}
 
-.projectHero__intro {
-    margin: 22px 0 0;
-    max-width: 64ch;
-    font-size: 17px;
-    line-height: 1.78;
-    color: var(--muted)
-}
+.caseStep__text{max-width:590px;position:sticky;top:140px;align-self:start}
+.caseStep.is-pannable .caseStep__text{position:static;top:auto}
+.caseStep__label{margin:0 0 14px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.caseStep__text h2{margin:0;font-family:var(--font-serif);font-weight:400;font-size:clamp(38px,4.8vw,78px);line-height:.9;letter-spacing:-.075em}
+.caseStep__text p{margin:20px 0 0;font-size:16px;line-height:1.82;color:var(--muted)}
+.caseEnd{width:min(var(--max),100%);margin:0 auto;padding:clamp(86px,10vw,150px) var(--pad-x)}
+.caseEnd__grid{display:grid;grid-template-columns:minmax(260px,.62fr) minmax(0,1fr);gap:clamp(32px,7vw,105px)}
+.caseEnd h2{margin:0;font-family:var(--font-serif);font-weight:400;font-size:clamp(42px,5.8vw,96px);line-height:.88;letter-spacing:-.08em}
+.caseEnd p{margin:0;max-width:800px;font-size:17px;line-height:1.86;color:var(--muted)}
+.project--lmsc{--accent:#c8531e;--accent-2:#ccb000}
+.project--lookbook{--accent:#0e654e;--accent-2:#d38473}
+.project--meditactive{--accent:#224736;--accent-2:#884556}
+.project--ecodream{--accent:#9f4b3f;--accent-2:#697259}
 
-.projectHero__cover {
-    margin: 0;
-    overflow: visible;
-    background: transparent;
-    box-shadow: none
-}
-
-.projectHero__cover img {
-    width: 100%;
-    aspect-ratio: 16/10;
-    object-fit: cover
-}
-
-.projectTags {
-    margin-top: 26px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap
-}
-
-.projectTags span {
-    padding: 8px 12px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, .24);
-    border: 1px solid rgba(21, 26, 24, .1);
-    font-size: 12px;
-    font-weight: 700;
-    color: rgba(21, 26, 24, .62)
-}
-
-.projectActions {
-    margin-top: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px
-}
-
-.caseIntro {
-    width: min(var(--max), 100%);
-    margin: 0 auto;
-    padding: clamp(78px, 9vw, 132px) var(--pad-x);
-    border-top: 1px solid rgba(21, 26, 24, .1)
-}
-
-.caseIntro__grid {
-    display: grid;
-    grid-template-columns: minmax(280px, .72fr) minmax(0, 1fr);
-    gap: clamp(32px, 7vw, 112px);
-    align-items: start
-}
-
-.caseIntro h2 {
-    margin: 0;
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: clamp(42px, 5.6vw, 92px);
-    line-height: .9;
-    letter-spacing: -.075em
-}
-
-.caseIntro p {
-    margin: 0;
-    max-width: 820px;
-    font-size: 17px;
-    line-height: 1.88;
-    color: var(--muted)
-}
-
-.caseIntro p+p {
-    margin-top: 18px
-}
-
-.caseStep {
-    padding: clamp(86px, 10vw, 160px) var(--pad-x)
-}
-
-.caseStep:nth-child(even) {
-    background: var(--paper-2)
-}
-
-.caseStep__inner {
-    width: min(var(--max), 100%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1.32fr) minmax(320px, .58fr);
-    gap: clamp(34px, 6vw, 96px);
-    align-items: center
-}
-
-.caseStep--reverse .caseStep__media {
-    order: 2
-}
-
-.caseStep--reverse .caseStep__text {
-    order: 1
-}
-
-.caseStep__media {
-    margin: 0;
-    overflow: visible;
-    background: transparent;
-    box-shadow: none;
-    border: 0
-}
-
-.caseStep__media img {
-    width: 100%;
-    height: auto;
-    max-height: 82vh;
-    object-fit: contain
-}
-
-.caseStep__text {
-    max-width: 590px
-}
-
-.caseStep__label {
-    margin: 0 0 14px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--accent)
-}
-
-.caseStep__text h2 {
-    margin: 0;
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: clamp(38px, 4.8vw, 78px);
-    line-height: .9;
-    letter-spacing: -.075em
-}
-
-.caseStep__text p {
-    margin: 20px 0 0;
-    font-size: 16px;
-    line-height: 1.82;
-    color: var(--muted)
-}
-
-.caseEnd {
-    width: min(var(--max), 100%);
-    margin: 0 auto;
-    padding: clamp(86px, 10vw, 150px) var(--pad-x)
-}
-
-.caseEnd__grid {
-    display: grid;
-    grid-template-columns: minmax(260px, .62fr) minmax(0, 1fr);
-    gap: clamp(32px, 7vw, 105px)
-}
-
-.caseEnd h2 {
-    margin: 0;
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: clamp(42px, 5.8vw, 96px);
-    line-height: .88;
-    letter-spacing: -.08em
-}
-
-.caseEnd p {
-    margin: 0;
-    max-width: 800px;
-    font-size: 17px;
-    line-height: 1.86;
-    color: var(--muted)
-}
-
-.project--lmsc {
-    --accent: #c8531e;
-    --accent-2: #ccb000
-}
-
-.project--lookbook {
-    --accent: #0e654e;
-    --accent-2: #d38473
-}
-
-.project--meditactive {
-    --accent: #224736;
-    --accent-2: #884556
-}
-
-.project--ecodream {
-    --accent: #9f4b3f;
-    --accent-2: #697259
-}
-
-@media(max-width:900px) {
-
-    .projectHero__grid,
-    .caseIntro__grid,
-    .caseStep__inner,
-    .caseEnd__grid {
-        grid-template-columns: 1fr
-    }
-
-    .caseStep--reverse .caseStep__media,
-    .caseStep--reverse .caseStep__text {
-        order: initial
-    }
-
-    .caseStep__media img {
-        max-height: none
-    }
-
-    .projectHero h1 {
-        font-size: clamp(56px, 17vw, 96px)
-    }
+@media(max-width:900px){
+  .projectHero__grid,.caseIntro__grid,.caseStep__inner,.caseStep--reverse .caseStep__inner,.caseEnd__grid{grid-template-columns:1fr}
+  .caseStep--reverse .caseStep__media,.caseStep--reverse .caseStep__text{order:initial}
+  .projectHero h1{font-size:clamp(56px,17vw,96px)}
+  .caseStep__text{position:static}
+  .caseStep__media,.caseStep__media.is-pannable{height:auto;overflow:visible}
+  .caseStep__media img,.caseStep__media.is-pannable img{transform:none!important}
 }

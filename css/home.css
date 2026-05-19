@@ -5,15 +5,15 @@
 }
 
 .artHero {
-    --scene-scale: 1;
-    --scene-y: 0px;
-    --sea-opacity: .22;
-    --shell-scale: .72;
-    --shell-y: 90px;
-    --shell-rotate: 0deg;
-    --shell-opacity: 0;
-    --trees-scale: 1;
-    --trees-y: 0px;
+  --scene-scale:1;
+  --scene-y:0px;
+  --sea-opacity:.22;
+  --shell-scale:.72;
+  --shell-y:90px;
+  --shell-rotate:0deg;
+  --shell-opacity:0;
+  --trees-scale:1;
+  --trees-y:0px;
     --trees-opacity: .08;
     --copy-opacity: 1;
     --copy-y: 0px;
@@ -41,39 +41,39 @@
     overflow: hidden
 }
 
-.artHero__layer {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 100vw;
-    height: 100vh;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    pointer-events: none;
-    user-select: none;
-    will-change: transform, opacity;
+.artHero__layer{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:100vw;
+  height:100vh;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  pointer-events:none;
+  user-select:none;
+  will-change:transform,opacity;
 }
 
 .artHero__sea {
-    z-index: 1;
-    transform: translate3d(-50%, calc(-50% + var(--scene-y)), 0) scale(var(--scene-scale));
+     z-index:1;
+    transform:translate3d(-50%,calc(-50% + var(--scene-y)),0) scale(var(--scene-scale));
     transform-origin: 50% 58%;
     opacity: var(--sea-opacity);
     filter: saturate(1.02) contrast(1.02) brightness(1.01)
 }
 
 .artHero__shell {
-    z-index: 2;
-    transform: translate3d(-50%, calc(-50% + var(--shell-y)), 0) rotate(var(--shell-rotate)) scale(var(--shell-scale));
+    z-index:2;
+  transform:translate3d(-50%,calc(-50% + var(--shell-y)),0) rotate(var(--shell-rotate)) scale(var(--shell-scale));
     transform-origin: 50% 66%;
     opacity: var(--shell-opacity);
     filter: saturate(1.01) contrast(1.01) brightness(1.01) drop-shadow(0 20px 48px rgba(54, 38, 25, .11))
 }
 
 .artHero__trees {
-    z-index: 3;
-    transform: translate3d(-50%, calc(-50% + var(--trees-y)), 0) scale(var(--trees-scale));
+     z-index:3;
+  transform:translate3d(-50%,calc(-50% + var(--trees-y)),0) scale(var(--trees-scale));
     transform-origin: 78% 38%;
     opacity: var(--trees-opacity);
     filter: saturate(.96) contrast(.98) brightness(.92)
@@ -165,8 +165,8 @@
     top: calc(var(--nav-h) + 116px);
     opacity: var(--text-one);
     transform: translateY(calc((1 - var(--text-one)) * 20px));
-    color: var(--ink);
-    text-shadow: 0 3px 24px rgba(243, 239, 229, .62)
+    color: #fff6e7;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, .32), 0 16px 52px rgba(0, 0, 0, .28)
 }
 
 .artHero__text--two {
@@ -186,8 +186,8 @@
     bottom: clamp(70px, 8vw, 124px);
     opacity: var(--text-three);
     transform: translateY(calc((1 - var(--text-three)) * 20px));
-    color: var(--ink);
-    text-shadow: 0 3px 24px rgba(243, 239, 229, .65)
+   color: #fff6e7;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, .32), 0 16px 52px rgba(0, 0, 0, .28)
 }
 
 .artHero__scroll {
