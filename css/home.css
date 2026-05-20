@@ -513,3 +513,67 @@
         max-width: 680px
     }
 }
+/* Refinement v7: più ritmo editoriale, meno effetto card, movimento leggero sulle cover. */
+.artHero__scene:before{background:linear-gradient(90deg,rgba(243,239,229,.18) 0%,rgba(243,239,229,.06) 38%,rgba(243,239,229,.01) 66%,rgba(21,26,24,.16) 100%)}
+.artHero__copy h1{text-wrap:balance}
+.sceneBridge{border-top:1px solid rgba(21,26,24,.08)}
+.homeProject__image{position:relative;overflow:hidden;isolation:isolate}
+.homeProject__image:after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.46;transform:scaleX(.72);transform-origin:left;transition:transform .8s var(--ease),opacity .8s var(--ease)}
+.homeProject__image:hover:after{transform:scaleX(1);opacity:.72}
+.homeProject__image img{display:block;height:108%;transform:translate3d(0,var(--home-img-y,0px),0) scale(1.01)}
+.homeProject__image:hover img{transform:translate3d(0,var(--home-img-y,0px),0) scale(1.025)}
+.homeProject__content{align-self:center}
+.homeProject__content h3{text-wrap:balance}
+.homeProject__content a{text-decoration:none;position:relative}
+.homeProject__content a:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(.28);transform-origin:left;transition:transform .35s var(--ease)}
+.homeProject__content a:hover:after{transform:scaleX(1)}
+@media(max-width:900px){.homeProject__image img{height:auto;transform:none!important}.homeProject__image:hover img{transform:none!important}}
+
+/* === Refinement v8: hero più narrativa e ingresso nel quadro più chiaro === */
+.artHero{
+  --immersive-scale:1;
+  --immersive-y:0px;
+  height:620vh;
+}
+.artHero__sticky{
+  background:radial-gradient(circle at 50% 44%, #ece3d0 0%, #d7cfba 46%, #b9b49e 100%);
+}
+.artHero__scene{
+  transform:translate3d(0,var(--immersive-y),0) scale(var(--immersive-scale));
+  transform-origin:50% 58%;
+  will-change:transform;
+}
+.artHero__layer{
+  width:106vw;
+  height:106vh;
+}
+.artHero__scene:before{
+  background:
+    radial-gradient(circle at 48% 50%, rgba(243,239,229,.08) 0%, rgba(243,239,229,0) 44%),
+    linear-gradient(90deg,rgba(243,239,229,.26) 0%,rgba(243,239,229,.08) 38%,rgba(21,26,24,.08) 76%,rgba(21,26,24,.22) 100%);
+}
+.artHero__copy,
+.artHero__text{
+  transform:translate3d(0,calc(var(--copy-y,0px) + var(--immersive-y) * .16),0) scale(var(--immersive-scale));
+  transform-origin:left center;
+  will-change:transform,opacity;
+}
+.artHero__text--one,
+.artHero__text--two,
+.artHero__text--three{
+  transform:translate3d(0,calc((1 - var(--text-one,1)) * 20px + var(--immersive-y) * .12),0) scale(var(--immersive-scale));
+}
+.artHero__text--two{
+  transform-origin:right center;
+}
+.artHero__text p{
+  max-width:16ch;
+}
+.artHero__text--three p{
+  max-width:18ch;
+}
+@media(max-width:900px){
+  .artHero{height:520vh}
+  .artHero__layer{width:116vw;height:106vh}
+  .artHero__copy,.artHero__text{transform:translate3d(0,var(--copy-y,0px),0) scale(1)}
+}

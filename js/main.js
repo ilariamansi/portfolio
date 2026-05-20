@@ -26,26 +26,30 @@
     const total=hero.offsetHeight-window.innerHeight;
     const p=total>0?clamp(-rect.top/total,0,1):0;
 
-    // Ricostruzione progressiva del quadro: prima acqua/paesaggio, poi alberi, infine conchiglia.
-    const seaOpacity=.22 + smoothstep(.03,.24,p)*.78;
-    const treesOpacity=.08 + smoothstep(.16,.42,p)*.92;
-    const shellIn=smoothstep(.30,.52,p);
-    const shellOut=smoothstep(.82,.98,p);
-    const shellOpacity=shellIn*(1-shellOut);
+    // Sequenza più leggibile: scena pulita > ricomposizione del quadro > ingresso nel mare.
+    const build=smoothstep(.04,.46,p);
+    const dive=smoothstep(.52,.96,p);
+    const seaOpacity=.12 + smoothstep(.02,.28,p)*.88;
+    const treesOpacity=.04 + smoothstep(.14,.38,p)*.96;
+    const shellIn=smoothstep(.24,.44,p);
+    const shellOpacity=shellIn;
 
-    const copyOut=smoothstep(.06,.20,p);
-    const textOne=smoothstep(.18,.30,p)*(1-smoothstep(.38,.50,p));
-    const textTwo=smoothstep(.46,.58,p)*(1-smoothstep(.64,.76,p));
-    const textThree=smoothstep(.72,.82,p)*(1-smoothstep(.92,.99,p));
+    const copyOut=smoothstep(.05,.18,p);
+    const textOne=smoothstep(.15,.27,p)*(1-smoothstep(.34,.46,p));
+    const textTwo=smoothstep(.36,.50,p)*(1-smoothstep(.54,.66,p));
+    const textThree=smoothstep(.58,.72,p)*(1-smoothstep(.84,.98,p));
 
-    const sceneScale=1 + p*.045;
-const sceneY=-p*18;
-const shellScale=.72 + shellIn*.10 + p*.018 + shellOut*.05;
-const shellY=90 - shellIn*76 - p*18 - shellOut*120;
-    const shellRotate=shellOut*10;
-    const treesScale=1 + p*.045;
-    const treesY=0 - p*42;
+    // Qui lo zoom diventa evidente: non è un semplice parallax, è proprio l'ingresso nella scena.
+    const sceneScale=1 + build*.06 + dive*.54;
+    const sceneY=-build*12 - dive*96;
+    const shellScale=.62 + shellIn*.30 + dive*.46;
+    const shellY=132 - shellIn*118 - dive*210;
+    const shellRotate=build*-2 + dive*10;
+    const treesScale=1 + build*.035 + dive*.42;
+    const treesY=-build*26 - dive*118;
     const scrollOpacity=1-smoothstep(.03,.12,p);
+    const immersiveScale=1 + dive*.18;
+    const immersiveY=-dive*34;
 
     hero.style.setProperty('--scene-scale',sceneScale.toFixed(3));
     hero.style.setProperty('--scene-y',`${sceneY.toFixed(2)}px`);
@@ -62,7 +66,12 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
     hero.style.setProperty('--text-one',textOne.toFixed(3));
     hero.style.setProperty('--text-two',textTwo.toFixed(3));
     hero.style.setProperty('--text-three',textThree.toFixed(3));
+    hero.style.setProperty('--immersive-scale',immersiveScale.toFixed(3));
+    hero.style.setProperty('--immersive-y',`${immersiveY.toFixed(2)}px`);
     hero.style.setProperty('--scroll-opacity',scrollOpacity.toFixed(3));
+
+    // Contrasto dinamico della navigazione: chiara sulla scena scura, scura sulle sezioni chiare.
+    document.body.classList.toggle('nav-on-dark', rect.bottom > 0 && p > .22 && p < .98);
   }
   function requestRender(){if(!ticking){ticking=true;requestAnimationFrame(render)}}
   render();
@@ -80,6 +89,33 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
 })();
 
 
+
+
+
+(function homeProjectImages(){
+  const images=[...document.querySelectorAll('.homeProject__image img')];
+  if(!images.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  let ticking=false;
+  function clamp(n,min,max){return Math.min(Math.max(n,min),max)}
+  function render(){
+    ticking=false;
+    if(window.innerWidth<=900){
+      images.forEach(img=>img.style.setProperty('--home-img-y','0px'));
+      return;
+    }
+    images.forEach(img=>{
+      const rect=img.parentElement.getBoundingClientRect();
+      if(rect.bottom<0 || rect.top>window.innerHeight)return;
+      const progress=clamp((window.innerHeight-rect.top)/(window.innerHeight+rect.height),0,1);
+      const move=(progress-.5)*-34;
+      img.style.setProperty('--home-img-y',`${move.toFixed(2)}px`);
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(render)}}
+  render();
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request,{passive:true});
+})();
 (function caseStudyMedia(){
   const steps=[...document.querySelectorAll('.caseStep')];
   if(!steps.length)return;
@@ -87,15 +123,18 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
   let ticking=false;
 
   function clamp(n,min,max){return Math.min(Math.max(n,min),max)}
-  function stickyTop(){return window.innerWidth<=900 ? 0 : 128}
+  function pinTop(){return window.innerWidth<=900 ? 0 : 126}
   function panWindowHeight(){
-    // Finestra grande ma non più alta del viewport: resta leggibile accanto al testo.
-    return Math.min(Math.max(560, window.innerHeight - stickyTop() - 92), 820);
+    return Math.min(Math.max(540, window.innerHeight - pinTop() - 86), 820);
   }
-
-  function getRenderedHeight(img, mediaWidth){
-    const ratio=(img.naturalWidth && img.naturalHeight) ? img.naturalWidth/img.naturalHeight : 1.6;
-    return mediaWidth / ratio;
+  function imageRatio(img){
+    if(img.naturalWidth && img.naturalHeight) return img.naturalWidth / img.naturalHeight;
+    const w=parseFloat(img.getAttribute('width'));
+    const h=parseFloat(img.getAttribute('height'));
+    return (w && h) ? w/h : 1.6;
+  }
+  function renderedHeight(img, width){
+    return width / imageRatio(img);
   }
 
   function prepare(){
@@ -113,12 +152,13 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
 
       const mediaWidth=media.clientWidth;
       const windowH=panWindowHeight();
-      const renderedH=getRenderedHeight(img, mediaWidth);
-      const extra=Math.max(0, renderedH - windowH);
+      const imgH=renderedHeight(img, mediaWidth);
+      const extra=Math.max(0, imgH - windowH);
 
-      // Solo immagini realmente più alte della finestra scorrono.
-      if(extra > 36){
+      // Attiva la finestra scorrevole SOLO quando l'immagine è davvero più alta della viewport.
+      if(extra > 80){
         step.classList.add('is-pannable');
+        step.style.setProperty('--pin-top', `${pinTop()}px`);
         step.style.setProperty('--pan-window', `${windowH.toFixed(2)}px`);
         step.style.setProperty('--pan-extra', `${extra.toFixed(2)}px`);
       }
@@ -131,22 +171,17 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
 
     steps.forEach(step=>{
       if(!step.classList.contains('is-pannable'))return;
-
-      const media=step.querySelector('.caseStep__media');
-      const img=media && media.querySelector('img');
-      if(!media || !img)return;
+      const img=step.querySelector('.caseStep__media img');
+      if(!img)return;
 
       const rect=step.getBoundingClientRect();
       const extra=parseFloat(getComputedStyle(step).getPropertyValue('--pan-extra')) || 0;
       if(extra<=0)return;
 
-      // Progress parte quando la sezione arriva sotto la nav/sticky top:
-      // all'inizio vedi la parte alta dell'immagine, poi scorre SOLO l'immagine.
-      const start=stickyTop();
-      const progress=clamp((start - rect.top) / extra, 0, 1);
-      const move=-extra * progress;
-
-      img.style.setProperty('--img-y', `${move.toFixed(2)}px`);
+      // 0: sezione appena agganciata alla sticky area = parte alta dell'immagine.
+      // 1: fine distanza extra = parte bassa dell'immagine. Non muove mai il blocco intero.
+      const progress=clamp((pinTop() - rect.top) / extra, 0, 1);
+      img.style.setProperty('--img-y', `${(-extra * progress).toFixed(2)}px`);
     });
   }
 
@@ -156,7 +191,6 @@ const shellY=90 - shellIn*76 - p*18 - shellOut*120;
       requestAnimationFrame(render);
     }
   }
-
   function refresh(){
     prepare();
     render();
