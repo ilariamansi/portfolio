@@ -114,15 +114,10 @@
   margin-top: 18px
 }
 
-.caseFlow {
-  position: relative
-}
-
 .caseStep {
-  --pin-top: 126px;
+  --case-sticky-top: 128px;
   --pan-window: 74vh;
   --pan-extra: 0px;
-  position: relative;
   padding: clamp(86px, 10vw, 160px) var(--pad-x)
 }
 
@@ -134,13 +129,14 @@
   width: min(var(--max), 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.34fr) minmax(320px, .56fr);
+  grid-template-columns: minmax(0, 1.32fr) minmax(320px, .58fr);
   gap: clamp(34px, 6vw, 96px);
   align-items: start
 }
 
+/* Nei layout invertiti il testo rimane nella colonna stretta e l'immagine resta grande. */
 .caseStep--reverse .caseStep__inner {
-  grid-template-columns: minmax(320px, .56fr) minmax(0, 1.34fr)
+  grid-template-columns: minmax(320px, .58fr) minmax(0, 1.32fr)
 }
 
 .caseStep--reverse .caseStep__media {
@@ -151,15 +147,16 @@
   order: 1
 }
 
+/* Base: immagine grande, pulita, senza card e senza crop casuale. */
 .caseStep__media {
   margin: 0;
   position: relative;
-  width: 100%;
-  align-self: start;
   overflow: visible;
   background: transparent;
+  box-shadow: none;
   border: 0;
-  box-shadow: none
+  width: 100%;
+  align-self: start
 }
 
 .caseStep__media img {
@@ -167,19 +164,45 @@
   width: 100%;
   height: auto;
   max-width: none;
-  max-height: min(78vh, 820px);
+  max-height: calc(100vh - 190px);
   object-fit: contain;
   object-position: center top;
   transform: none;
   will-change: auto
 }
 
+/* Solo per immagini lunghe: diventa una finestra fissa. Parte SEMPRE dall'alto e scorre solo l'immagine interna. */
+.caseStep.is-pannable {
+  min-height: calc(100vh + var(--pan-extra) + 96px)
+}
+
+.caseStep.is-pannable .caseStep__inner {
+  position: sticky;
+  top: var(--case-sticky-top);
+  align-items: start
+}
+
+.caseStep.is-pannable .caseStep__media {
+  height: var(--pan-window);
+  overflow: hidden
+}
+
+.caseStep.is-pannable .caseStep__media img {
+  max-height: none;
+  transform: translate3d(0, var(--img-y, 0px), 0);
+  will-change: transform
+}
+
 .caseStep__text {
   max-width: 590px;
   position: sticky;
   top: 140px;
-  align-self: start;
-  z-index: 2
+  align-self: start
+}
+
+.caseStep.is-pannable .caseStep__text {
+  position: static;
+  top: auto
 }
 
 .caseStep__label {
@@ -205,38 +228,6 @@
   font-size: 16px;
   line-height: 1.82;
   color: var(--muted)
-}
-
-/* Pannelli lunghi: il layout resta fermo, parte alta visibile subito, scorre SOLO l'immagine interna. */
-.caseStep.is-pannable {
-  padding: 0 var(--pad-x);
-  min-height: calc(100vh + var(--pan-extra) + 2px)
-}
-
-.caseStep.is-pannable .caseStep__inner {
-  position: sticky;
-  top: var(--pin-top);
-  min-height: calc(100vh - var(--pin-top));
-  display: grid;
-  align-items: center
-}
-
-.caseStep.is-pannable .caseStep__media {
-  height: var(--pan-window);
-  overflow: hidden;
-  align-self: center
-}
-
-.caseStep.is-pannable .caseStep__media img {
-  max-height: none;
-  transform: translate3d(0, var(--img-y, 0px), 0);
-  will-change: transform
-}
-
-.caseStep.is-pannable .caseStep__text {
-  position: static;
-  top: auto;
-  align-self: center
 }
 
 .caseEnd {
@@ -307,72 +298,220 @@
     font-size: clamp(56px, 17vw, 96px)
   }
 
-  .caseStep,
-  .caseStep.is-pannable {
-    padding: clamp(64px, 12vw, 100px) var(--pad-x);
-    min-height: auto
-  }
-
-  .caseStep__inner,
-  .caseStep.is-pannable .caseStep__inner {
-    position: static;
-    min-height: auto
-  }
-
-  .caseStep__text,
-  .caseStep.is-pannable .caseStep__text {
+  .caseStep__text {
     position: static
   }
 
   .caseStep__media,
-  .caseStep.is-pannable .caseStep__media {
+  .caseStep__media.is-pannable {
     height: auto;
     overflow: visible
   }
 
   .caseStep__media img,
-  .caseStep.is-pannable .caseStep__media img {
-    max-height: none;
+  .caseStep__media.is-pannable img {
     transform: none !important
   }
 }
 
-/* === Refinement v8: più respiro tra media dei case study, senza toccare contenuti/immagini === */
+
+/* === v9 project visual cleanup: no fake boxes, more coherent art direction === */
+.projectHero__cover,
+.caseStep__media {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
 .projectHero__cover img,
 .caseStep__media img {
-  border-radius: clamp(14px, 1.6vw, 26px)
+  border-radius: 0 !important;
 }
 
-.caseStep__media {
-  padding: clamp(8px, 1.2vw, 18px)
-}
-
-.caseStep__media img {
-  box-shadow: 0 22px 70px rgba(21, 26, 24, .08)
+.caseStep:nth-child(even) {
+  background: transparent;
 }
 
 .caseStep {
-  padding-top: clamp(104px, 11vw, 178px);
-  padding-bottom: clamp(104px, 11vw, 178px)
+  position: relative;
 }
 
-.caseStep+.caseStep {
-  border-top: 1px solid rgba(21, 26, 24, .08)
+.caseStep+.caseStep:before {
+  content: "";
+  position: absolute;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(17, 19, 18, .12), transparent);
 }
 
-.caseStep.is-pannable .caseStep__media {
-  border-radius: clamp(14px, 1.6vw, 26px);
-  background: rgba(255, 255, 255, .18);
-  box-shadow: 0 22px 70px rgba(21, 26, 24, .06)
+.caseStep__label,
+.projectHero__kicker {
+  color: var(--accent);
+}
+
+.project--lmsc {
+  --accent: #9b544b;
+  --accent-2: #dcc8a7
+}
+
+.project--lookbook {
+  --accent: #68755e;
+  --accent-2: #9b544b
+}
+
+.project--meditactive {
+  --accent: #68755e;
+  --accent-2: #6b8496
+}
+
+.project--ecodream {
+  --accent: #9b544b;
+  --accent-2: #68755e
+}
+
+
+/* === v10 project pager and palette details === */
+.projectPage {
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in srgb, var(--accent-3) 28%, var(--paper)) 100%);
+}
+
+.projectHero__kicker,
+.caseStep__label {
+  color: color-mix(in srgb, var(--accent) 86%, var(--ink));
+}
+
+.projectHero__cover img {
+  box-shadow: none !important;
+}
+
+.caseIntro {
+  border-top-color: color-mix(in srgb, var(--sea) 30%, rgba(17, 19, 18, .12));
+}
+
+.caseStep+.caseStep:before {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--sea) 34%, rgba(17, 19, 18, .12)), transparent);
+}
+
+.projectActions .button--dark {
+  background: color-mix(in srgb, var(--accent) 74%, var(--ink));
+  border-color: color-mix(in srgb, var(--accent) 74%, var(--ink));
+}
+
+.projectPager {
+  width: min(var(--max), 100%);
+  margin: 0 auto;
+  padding: clamp(34px, 5vw, 72px) var(--pad-x) clamp(96px, 11vw, 170px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 3vw, 44px);
+  border-top: 1px solid color-mix(in srgb, var(--sea) 24%, rgba(17, 19, 18, .13));
+}
+
+.projectPager__link {
+  position: relative;
+  min-height: clamp(130px, 16vw, 230px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 14px;
+  overflow: hidden;
+  padding: clamp(18px, 2.6vw, 34px) 0;
+  color: var(--ink);
+  isolation: isolate;
+}
+
+.projectPager__link--next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.projectPager__link:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--preview) center/cover no-repeat;
+  opacity: 0;
+  transition: opacity .36s var(--ease),  filter .72s var(--ease);
+  filter: saturate(.95) contrast(1.02) brightness(.90);
+}
+
+.projectPager__link:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, currentColor, transparent);
+  opacity: .35;
+  
+}
+
+
+
+.projectPager__eyebrow {
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+  
+}
+
+.projectPager__title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(42px, 5.8vw, 104px);
+  line-height: .84;
+  letter-spacing: -.085em;
+  transition: color .28s var(--ease), transform .38s var(--ease), text-shadow .28s var(--ease);
+}
+
+.projectPager__link:hover:before {
+  opacity: .78;
+  transform: scale(1);
+}
+
+.projectPager__link:hover:after {
+  opacity: 0;
+}
+
+.projectPager__link:hover .projectPager__eyebrow,
+.projectPager__link:hover .projectPager__title {
+  color: var(--cream);
+  text-shadow: 0 10px 34px rgba(0, 0, 0, .34);
+}
+
+.projectPager__link:hover .projectPager__title {
+  transform: translateY(-4px);
+}
+
+.projectPager__link--prev:hover .projectPager__eyebrow {
+  transform: translateX(-4px);
+}
+
+.projectPager__link--next:hover .projectPager__eyebrow {
+  transform: translateX(4px);
 }
 
 @media(max-width:900px) {
-  .caseStep__media {
-    padding: 0
+  .projectPager {
+    grid-template-columns: 1fr;
   }
 
-  .caseStep {
-    padding-top: clamp(74px, 14vw, 112px);
-    padding-bottom: clamp(74px, 14vw, 112px)
+  .projectPager__link--next {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .projectPager__link--next:after {
+    background: linear-gradient(90deg, currentColor, transparent);
   }
 }
