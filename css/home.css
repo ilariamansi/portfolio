@@ -735,3 +735,159 @@
     .sceneBridge{margin-top:-4vh;}
     .artHero__text--two p{font-size:clamp(48px,16vw,86px);}
 }
+
+
+.artHero::after{
+content:"";
+position:absolute;
+inset:0;
+pointer-events:none;
+
+opacity:var(--cinematic-opacity,0);
+transition:opacity .2s linear;
+mix-blend-mode:multiply;
+}
+
+.artHero__copy h1{
+max-width:10ch;
+line-height:.95;
+}
+
+.artHero__copy p:last-child{
+max-width:38rem;
+}
+.hero-overlay-transition {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(7, 12, 18, 0) 0%,
+      rgba(7, 12, 18, 0.15) 35%,
+      rgba(10, 15, 22, 0.45) 70%,
+      rgba(11, 17, 24, 0.95) 100%
+    );
+
+  pointer-events: none;
+}
+/* === Mobile fix: hero più stabile e meno esplosa === */
+
+@media (max-width: 900px) {
+  .artHero {
+    height: 460vh;
+  }
+
+  .artHero__copy h1 {
+    font-size: clamp(48px, 15vw, 92px);
+    max-width: 9ch;
+  }
+
+  .artHero__copy p:last-child {
+    max-width: 30rem;
+  }
+
+  .artHero__text p {
+    font-size: clamp(13px, 3.4vw, 18px);
+    max-width: 22ch;
+  }
+
+  .artHero__text--two p {
+    font-size: clamp(42px, 15vw, 82px);
+  }
+}
+
+@media (max-width: 640px) {
+  .artHero {
+    height: 380vh;
+  }
+
+  .artHero__sticky {
+    height: 100svh;
+  }
+
+  .artHero__layer {
+    width: 125vw;
+    height: 100svh;
+  }
+
+  .artHero__base,
+  .artHero__sea {
+    object-position: center center;
+  }
+
+  .artHero__trees {
+    width: 150vw;
+    height: 100svh;
+    object-fit: cover;
+    object-position: 48% center;
+    opacity: var(--trees-opacity);
+    transform-origin: 50% 48%;
+    filter: saturate(.98) contrast(1) brightness(.9);
+  }
+
+  .artHero__shell {
+    width: 128vw;
+    height: 100svh;
+    object-position: center center;
+  }
+
+  .artHero__copy {
+    left: var(--pad-x);
+    right: var(--pad-x);
+    bottom: max(38px, env(safe-area-inset-bottom));
+    z-index: 10;
+  }
+
+  .artHero__copy h1 {
+    font-size: clamp(44px, 17vw, 74px);
+    line-height: .94;
+    max-width: 8.5ch;
+  }
+
+  .artHero__copy p:last-child {
+    max-width: 24rem;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .artHero__text {
+    z-index: 9;
+  }
+
+  .artHero__text--one {
+    top: calc(var(--nav-h) + 76px);
+    left: var(--pad-x);
+  }
+
+  .artHero__text--two {
+    left: var(--pad-x);
+    right: auto;
+    top: 38vh;
+  }
+
+  .artHero__text--three {
+    right: var(--pad-x);
+    bottom: 18vh;
+  }
+
+  .artHero__text p {
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: .1em;
+    max-width: 19ch;
+  }
+
+  .artHero__text--two p {
+    font-size: clamp(40px, 17vw, 68px);
+    max-width: 7.5ch;
+  }
+
+  .artHero__scroll {
+    bottom: 22px;
+  }
+
+  .sceneBridge {
+    margin-top: -2vh;
+    padding-top: 84px;
+  }
+}
