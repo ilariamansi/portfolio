@@ -720,7 +720,11 @@ body{
     opacity:.82;
     filter:saturate(1.05) contrast(1.03) brightness(.66);
 }
-
+.siteFooter:after{
+    background:
+      linear-gradient(90deg, rgba(17,19,18,.82), rgba(104,117,94,.38) 42%, rgba(107,132,150,.34) 64%, rgba(17,19,18,.78)),
+      radial-gradient(circle at 70% 40%, rgba(155,84,75,.22), transparent 38%);
+}
 .siteFooter__brand{
     color:#fff4df;
 }

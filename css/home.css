@@ -1044,3 +1044,51 @@ max-width:38rem;
     background: var(--paper)!important;
   }
 }
+
+
+/* === PATCH MOBILE TREES + FINALE PIÙ MORBIDO ===
+   Mantiene la scena full screen, ma mostra l'intero layer alberi invece di cropparlo ai lati.
+   Il layer alberi è trasparente, quindi può stare contenuto in larghezza sopra la scena full-screen. */
+@media (max-width: 640px){
+  .artHero{
+    height: 385svh!important;
+    min-height: 385svh!important;
+  }
+
+  .artHero__base,
+  .artHero__sea{
+    width: 118vw!important;
+    height: 100svh!important;
+    object-fit: cover!important;
+    object-position: center center!important;
+  }
+
+  .artHero__trees{
+    width: 112vw!important;
+    height: auto!important;
+    aspect-ratio: 1600 / 995!important;
+    top: 43%!important;
+    left: 50%!important;
+    object-fit: contain!important;
+    object-position: center center!important;
+    opacity: .98!important;
+    z-index: 3!important;
+    transform-origin: 50% 48%!important;
+  }
+
+  .artHero__shell{
+    width: 108vw!important;
+    height: 100svh!important;
+    object-fit: cover!important;
+    object-position: center center!important;
+    transform-origin: 50% 56%!important;
+  }
+
+  .artHero__sticky:after{
+    background: linear-gradient(180deg,
+      rgba(245,244,239,0) 0%,
+      rgba(245,244,239,.08) 72%,
+      rgba(245,244,239,.34) 90%,
+      var(--paper) 100%)!important;
+  }
+}

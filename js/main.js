@@ -62,14 +62,14 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        maxScale: 1.72,
-        y: 28,
-        treeScale: 1.10,
-        treeY: 14,
-        shellScale: 1.06,
-        shellY: 22,
-        drift: 22,
-        height: 3.15
+        maxScale: 1.52,
+        y: 18,
+        treeScale: 1.08,
+        treeY: 8,
+        shellScale: 1.035,
+        shellY: 14,
+        drift: 18,
+        height: 3.85
       };
     }
     if (w <= 900) {
@@ -125,7 +125,7 @@
   }
 
   function draw(p){
-    const zoom = smoothstep(.05, .88, p);
+    const zoom = cfg.mode === 'mobile' ? smoothstep(.06, .96, p) : smoothstep(.05, .88, p);
     const deep = Math.pow(zoom, 1.18);
     const scale = 1 + deep * (cfg.maxScale - 1);
     const y = -deep * cfg.y;
@@ -142,7 +142,7 @@
     setTransform(shell, `translate3d(-50%, calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 18}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
 
     setOpacity(base, baseOut);
-    setOpacity(trees, cfg.mode === 'mobile' ? .88 - treeOut * .18 : 1 - treeOut * .55);
+    setOpacity(trees, cfg.mode === 'mobile' ? .98 - treeOut * .06 : 1 - treeOut * .55);
     setOpacity(shell, 1 - shellOut * .85);
     hero.style.setProperty('--wash-opacity', wash.toFixed(3));
     hero.style.setProperty('--cinematic-opacity', smoothstep(.62, .96, p).toFixed(3));
@@ -169,7 +169,11 @@
     readProgress();
 
     // Damping: evita lo scatto se il browser invia pochi eventi scroll.
-    current += (target - current) * 0.16;
+    // Su mobile usiamo un aggancio più reattivo, altrimenti a fine hero lo sticky si sgancia
+    // mentre l'animazione sta ancora rincorrendo il target: è lì che nasce il saltino.
+    const isMobile = cfg.mode === 'mobile';
+    const ease = isMobile ? (target > .90 ? .52 : .34) : .16;
+    current += (target - current) * ease;
     draw(current);
 
     if (Math.abs(target - current) > 0.001) {
