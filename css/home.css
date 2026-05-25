@@ -984,3 +984,63 @@ max-width:38rem;
     padding-top:72px!important;
   }
 }
+
+/* === HOTFIX MOBILE STICKY HERO — full screen, animazione visibile ===
+   Il problema era overflow:hidden su .artHero: su mobile può rompere position:sticky,
+   quindi la pagina scorreva subito verso il basso senza trattenere la scena. */
+@media (max-width: 640px){
+  .artHero{
+    position: relative!important;
+    height: 390svh!important;
+    min-height: 390svh!important;
+    overflow: visible!important;
+    background: var(--paper)!important;
+    contain: paint style!important;
+  }
+
+  .artHero__sticky{
+    position: sticky!important;
+    top: 0!important;
+    height: 100svh!important;
+    min-height: 100svh!important;
+    width: 100%!important;
+    overflow: hidden!important;
+    background: #cfc5ad!important;
+  }
+
+  .artHero__scene{
+    position: absolute!important;
+    inset: 0!important;
+    width: 100vw!important;
+    height: 100svh!important;
+    overflow: hidden!important;
+  }
+
+  .artHero__layer{
+    height: 100svh!important;
+    max-width: none!important;
+    object-fit: cover!important;
+  }
+
+  .artHero__base,
+  .artHero__sea{
+    width: 118vw!important;
+    object-position: center center!important;
+  }
+
+  .artHero__trees{
+    width: 132vw!important;
+    object-position: center center!important;
+    opacity: .92;
+  }
+
+  .artHero__shell{
+    width: 116vw!important;
+    object-position: center center!important;
+  }
+
+  .sceneBridge{
+    margin-top: -1px!important;
+    background: var(--paper)!important;
+  }
+}
