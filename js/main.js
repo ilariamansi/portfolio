@@ -62,27 +62,27 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        maxScale: 1.58,
-        y: 18,
+        maxScale: 1.72,
+        y: 28,
         treeScale: 1.10,
-        treeY: 10,
-        shellScale: 1.04,
-        shellY: 18,
-        drift: 18,
-        height: 2.75
+        treeY: 14,
+        shellScale: 1.06,
+        shellY: 22,
+        drift: 22,
+        height: 3.15
       };
     }
     if (w <= 900) {
       return {
         mode: 'tablet',
-        maxScale: 2.05,
-        y: 44,
-        treeScale: 1.24,
-        treeY: 28,
-        shellScale: 1.12,
-        shellY: 36,
-        drift: 38,
-        height: 3.35
+        maxScale: 2.65,
+        y: 70,
+        treeScale: 1.55,
+        treeY: 46,
+        shellScale: 1.32,
+        shellY: 68,
+        drift: 58,
+        height: 3.8
       };
     }
     return {
@@ -102,17 +102,17 @@
   let target = 0;
   let current = 0;
   let raf = null;
-  let lastWidth = window.innerWidth;
+  let stableW = window.innerWidth;
+  let stableH = window.innerHeight;
 
   function setHeroHeight(){
     cfg = settings();
-    const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    hero.style.height = `${Math.round(h * cfg.height)}px`;
+    hero.style.height = `${Math.round(stableH * cfg.height)}px`;
   }
 
   function readProgress(){
     const rect = hero.getBoundingClientRect();
-    const total = hero.offsetHeight - window.innerHeight;
+    const total = hero.offsetHeight - stableH;
     target = total > 0 ? clamp(-rect.top / total, 0, 1) : 0;
   }
 
@@ -186,20 +186,27 @@
 
   let resizeTimer;
   function onResize(){
-    const widthChanged = Math.abs(window.innerWidth - lastWidth) > 12;
-
-    // Su mobile la barra del browser cambia altezza mentre scrolli: se ricalcoli tutto, vedi flash/scatti.
-    // Quindi ignoriamo i micro-resize verticali e aggiorniamo solo se cambia davvero la larghezza.
-    if (cfg.mode === 'mobile' && !widthChanged) return;
-
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      lastWidth = window.innerWidth;
-      setHeroHeight();
+      const nextW = window.innerWidth;
+      const nextH = window.innerHeight;
+
+      // Su mobile la barra del browser cambia l'altezza durante lo scroll:
+      // se aggiorniamo la scena a ogni micro-resize, compare il flash.
+      const isMobile = nextW <= 640;
+      const widthChanged = Math.abs(nextW - stableW) > 24;
+      const heightChanged = Math.abs(nextH - stableH) > 120;
+
+      if (!isMobile || widthChanged || heightChanged) {
+        stableW = nextW;
+        stableH = nextH;
+        setHeroHeight();
+      }
+
       readProgress();
-      draw(current);
+      draw(target);
       request();
-    }, 120);
+    }, 160);
   }
 
   setHeroHeight();

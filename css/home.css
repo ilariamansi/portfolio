@@ -903,83 +903,84 @@ max-width:38rem;
   }
 }
 
+/* === FIX MOBILE FULL SCREEN — niente riquadro, niente bordo nero === */
+.artHero::after{
+  content:none!important;
+  background:none!important;
+  opacity:0!important;
+}
 
-/* === PATCH MOBILE HERO: scena più stretta, niente flash, uscita verso chiaro === */
-@media (max-width: 640px) {
-  .artHero {
-    height: 275vh;
-    background: var(--paper);
+.artHero__sticky:after{
+  background:linear-gradient(180deg, rgba(239,228,208,0) 0%, rgba(239,228,208,.42) 62%, var(--paper) 100%)!important;
+}
+
+.sceneBridge{
+  margin-top:-1px!important;
+  background:linear-gradient(180deg, var(--paper) 0%, var(--paper) 100%)!important;
+}
+
+@media(max-width:640px){
+  .artHero{
+    height:315vh;
+    overflow:hidden;
+    background:var(--paper);
   }
 
-  .artHero__sticky {
-    height: 100dvh;
-    min-height: 100dvh;
-    background: var(--paper);
+  .artHero__sticky{
+    height:100svh;
+    min-height:100svh;
+    background:#cfc5ad;
+    overflow:hidden;
   }
 
-  .artHero__scene {
-    background: var(--paper);
+  .artHero__scene{
+    inset:0;
+    overflow:hidden;
   }
 
-  .artHero__layer {
-    width: 94vw;
-    height: 100dvh;
-    object-fit: contain;
-    object-position: center center;
+  .artHero__layer{
+    width:100vw!important;
+    height:100svh!important;
+    max-width:none!important;
+    object-fit:cover!important;
+    object-position:center center!important;
   }
 
   .artHero__base,
-  .artHero__sea {
-    width: 96vw;
-    height: 100dvh;
-    object-fit: contain;
-    object-position: center center;
+  .artHero__sea{
+    width:106vw!important;
+    height:100svh!important;
+    object-position:center center!important;
   }
 
-  .artHero__trees {
-    width: 112vw;
-    height: 100dvh;
-    object-fit: contain;
-    object-position: center center;
-    opacity: .92;
-    transform-origin: 50% 50%;
+  .artHero__trees{
+    width:112vw!important;
+    height:100svh!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    transform-origin:50% 50%!important;
+    opacity:.9;
   }
 
-  .artHero__shell {
-    width: 88vw;
-    height: 100dvh;
-    object-fit: contain;
-    object-position: center center;
-    transform-origin: 50% 55%;
+  .artHero__shell{
+    width:104vw!important;
+    height:100svh!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    transform-origin:50% 56%!important;
   }
 
-  .artHero__scene:before {
-    background: linear-gradient(
-      180deg,
-      rgba(239,228,208,.10) 0%,
-      rgba(239,228,208,0) 42%,
-      rgba(239,228,208,.26) 100%
-    );
+  .artHero__scene:before{
+    background:linear-gradient(90deg, rgba(17,19,18,.08) 0%, rgba(242,234,219,.02) 48%, rgba(17,19,18,.08) 100%)!important;
   }
 
-  .artHero__scene:after,
-  .artHero::after {
-    display: none !important;
+  .artHero__scene:after{
+    background:linear-gradient(180deg, rgba(251,243,228,.02), rgba(17,19,18,.035) 58%, rgba(251,243,228,.08))!important;
+    mix-blend-mode:normal!important;
   }
 
-  .artHero__sticky:after {
-    background: linear-gradient(
-      180deg,
-      rgba(239,228,208,0) 0%,
-      rgba(239,228,208,.35) 58%,
-      var(--paper) 100%
-    );
-    opacity: var(--wash-opacity);
-  }
-
-  .sceneBridge {
-    margin-top: -1px;
-    padding-top: 72px;
-    background: var(--paper);
+  .sceneBridge{
+    margin-top:-1px!important;
+    padding-top:72px!important;
   }
 }
