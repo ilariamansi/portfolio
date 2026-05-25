@@ -36,118 +36,270 @@
   if (!hero) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const base = hero.querySelector('.artHero__base');
+  const sea = hero.querySelector('.artHero__sea');
+  const shell = hero.querySelector('.artHero__shell');
+  const trees = hero.querySelector('.artHero__trees');
+  const copy = hero.querySelector('.artHero__copy');
+  const textOne = hero.querySelector('.artHero__text--one');
+  const textTwo = hero.querySelector('.artHero__text--two');
+  const textThree = hero.querySelector('.artHero__text--three');
+  const scrollHint = hero.querySelector('.artHero__scroll');
 
-  function clamp(n, min, max) {
+  if (reduce) return;
+
+  function clamp(n, min, max){
     return Math.min(Math.max(n, min), max);
   }
 
-  function smoothstep(edge0, edge1, x) {
+  function smoothstep(edge0, edge1, x){
     const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
     return t * t * (3 - 2 * t);
   }
 
-  function getMode() {
+  function settings(){
     const w = window.innerWidth;
-
-    if (w <= 640) return 'mobile';
-    if (w <= 900) return 'tablet';
-    return 'desktop';
+    if (w <= 640) {
+      return {
+        mode: 'mobile',
+        maxScale: 2.15,
+        y: 46,
+        treeScale: 1.34,
+        treeY: 28,
+        shellScale: 1.18,
+        shellY: 44,
+        drift: 34,
+        height: 3.2
+      };
+    }
+    if (w <= 900) {
+      return {
+        mode: 'tablet',
+        maxScale: 2.65,
+        y: 70,
+        treeScale: 1.55,
+        treeY: 46,
+        shellScale: 1.32,
+        shellY: 68,
+        drift: 58,
+        height: 3.8
+      };
+    }
+    return {
+      mode: 'desktop',
+      maxScale: 3.45,
+      y: 116,
+      treeScale: 1.95,
+      treeY: 88,
+      shellScale: 1.55,
+      shellY: 126,
+      drift: 96,
+      height: 4.8
+    };
   }
 
-  if (reduce) {
-    hero.style.setProperty('--base-opacity', '1');
-    hero.style.setProperty('--sea-opacity', '1');
-    hero.style.setProperty('--shell-opacity', '1');
-    hero.style.setProperty('--trees-opacity', '1');
-    hero.style.setProperty('--wash-opacity', '0');
-    return;
+  let cfg = settings();
+  let target = 0;
+  let current = 0;
+  let raf = null;
+
+  function setHeroHeight(){
+    cfg = settings();
+    hero.style.height = `${Math.round(window.innerHeight * cfg.height)}px`;
   }
 
-  let ticking = false;
-
-  function render() {
-    ticking = false;
-
-    const mode = getMode();
+  function readProgress(){
     const rect = hero.getBoundingClientRect();
     const total = hero.offsetHeight - window.innerHeight;
-    const p = total > 0 ? clamp(-rect.top / total, 0, 1) : 0;
-
-    const isMobile = mode === 'mobile';
-    const isTablet = mode === 'tablet';
-
-    const baseOpacity = 1 - smoothstep(.08, .28, p);
-    const washOpacity = smoothstep(.68, .96, p);
-
-    const copyOut = smoothstep(.05, .18, p);
-
-    const textOne = smoothstep(.12, .22, p) * (1 - smoothstep(.30, .44, p));
-    const textTwo = smoothstep(.28, .42, p) * (1 - smoothstep(.54, .70, p));
-    const textThree = smoothstep(.52, .66, p) * (1 - smoothstep(.76, .92, p));
-
-    const zoomStart = smoothstep(.04, .20, p) * (isMobile ? .20 : isTablet ? .30 : .42);
-    const zoomDeep = Math.pow(p, 1.55) * (isMobile ? 2.65 : isTablet ? 4.2 : 6.4);
-
-    const sceneScale = 1 + zoomStart + zoomDeep;
-    const sceneY = -p * (isMobile ? 72 : isTablet ? 120 : 178);
-
-    const shellOut = smoothstep(.30, .62, p);
-    const shellScale = 1 + zoomStart * .45 + Math.pow(p, 1.25) * (isMobile ? .34 : .72);
-    const shellY = -p * (isMobile ? 42 : 92) - shellOut * (isMobile ? 72 : 210);
-    const shellRotate = p * (isMobile ? 16 : 38) + shellOut * (isMobile ? 8 : 22);
-    const shellOpacity = 1 - smoothstep(.46, .72, p);
-
-    const treesScale = 1 + zoomStart * .22 + Math.pow(p, 1.35) * (isMobile ? .55 : isTablet ? 1.15 : 2.15);
-    const treesY = -p * (isMobile ? 44 : isTablet ? 96 : 190);
-    const treesOpacity = isMobile
-      ? .82 - smoothstep(.58, .88, p) * .42
-      : 1 - smoothstep(.54, .84, p) * .88;
-
-    const textScale = 1 + zoomStart * .15 + p * (isMobile ? .08 : .24);
-    const textDrift = p * (isMobile ? 52 : 154);
-    const scrollOpacity = 1 - smoothstep(.01, .08, p);
-
-    const cinematic = smoothstep(.58, .9, p);
-
-    hero.style.setProperty('--base-opacity', baseOpacity.toFixed(3));
-    hero.style.setProperty('--wash-opacity', washOpacity.toFixed(3));
-
-    hero.style.setProperty('--scene-scale', sceneScale.toFixed(3));
-    hero.style.setProperty('--scene-y', `${sceneY.toFixed(2)}px`);
-
-    hero.style.setProperty('--sea-opacity', '1');
-
-    hero.style.setProperty('--shell-scale', shellScale.toFixed(3));
-    hero.style.setProperty('--shell-y', `${shellY.toFixed(2)}px`);
-    hero.style.setProperty('--shell-rotate', `${shellRotate.toFixed(2)}deg`);
-    hero.style.setProperty('--shell-opacity', shellOpacity.toFixed(3));
-
-    hero.style.setProperty('--trees-scale', treesScale.toFixed(3));
-    hero.style.setProperty('--trees-y', `${treesY.toFixed(2)}px`);
-    hero.style.setProperty('--trees-opacity', treesOpacity.toFixed(3));
-
-    hero.style.setProperty('--copy-opacity', (1 - copyOut).toFixed(3));
-    hero.style.setProperty('--copy-y', `${(-42 * copyOut).toFixed(2)}px`);
-
-    hero.style.setProperty('--text-one', textOne.toFixed(3));
-    hero.style.setProperty('--text-two', textTwo.toFixed(3));
-    hero.style.setProperty('--text-three', textThree.toFixed(3));
-    hero.style.setProperty('--text-scale', textScale.toFixed(3));
-    hero.style.setProperty('--text-drift', `${textDrift.toFixed(2)}px`);
-
-    hero.style.setProperty('--scroll-opacity', scrollOpacity.toFixed(3));
-    hero.style.setProperty('--cinematic-opacity', cinematic.toFixed(3));
+    target = total > 0 ? clamp(-rect.top / total, 0, 1) : 0;
   }
 
-  function requestRender() {
-    if (!ticking) {
-      ticking = true;
+  function setTransform(el, value){
+    if (el) el.style.transform = value;
+  }
+
+  function setOpacity(el, value){
+    if (el) el.style.opacity = value.toFixed(3);
+  }
+
+  function draw(p){
+    const zoom = smoothstep(.05, .88, p);
+    const deep = Math.pow(zoom, 1.18);
+    const scale = 1 + deep * (cfg.maxScale - 1);
+    const y = -deep * cfg.y;
+
+    const baseOut = 1 - smoothstep(.08, .30, p);
+    const wash = smoothstep(.68, .98, p);
+    const copyOut = smoothstep(.04, .18, p);
+    const shellOut = smoothstep(.38, .74, p);
+    const treeOut = smoothstep(.60, .92, p);
+
+    setTransform(base, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
+    setTransform(sea, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
+    setTransform(trees, `translate3d(-50%, calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`);
+    setTransform(shell, `translate3d(-50%, calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 18}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
+
+    setOpacity(base, baseOut);
+    setOpacity(trees, cfg.mode === 'mobile' ? .88 - treeOut * .18 : 1 - treeOut * .55);
+    setOpacity(shell, 1 - shellOut * .85);
+    hero.style.setProperty('--wash-opacity', wash.toFixed(3));
+    hero.style.setProperty('--cinematic-opacity', smoothstep(.62, .96, p).toFixed(3));
+
+    setOpacity(copy, 1 - copyOut);
+    setTransform(copy, `translate3d(0, ${-34 * copyOut}px, 0)`);
+
+    const one = smoothstep(.10, .20, p) * (1 - smoothstep(.31, .44, p));
+    const two = smoothstep(.26, .40, p) * (1 - smoothstep(.54, .70, p));
+    const three = smoothstep(.50, .65, p) * (1 - smoothstep(.74, .90, p));
+    const drift = deep * cfg.drift;
+
+    setOpacity(textOne, one);
+    setOpacity(textTwo, two);
+    setOpacity(textThree, three);
+    setTransform(textOne, `translate3d(${drift * .28}px, ${-drift * .10}px, 0)`);
+    setTransform(textTwo, `translate3d(${-drift * .22}px, ${-drift * .08}px, 0)`);
+    setTransform(textThree, `translate3d(${drift * .16}px, ${-drift * .10}px, 0)`);
+    setOpacity(scrollHint, 1 - smoothstep(.01, .08, p));
+  }
+
+  function loop(){
+    raf = null;
+    readProgress();
+
+    // Damping: evita lo scatto se il browser invia pochi eventi scroll.
+    current += (target - current) * 0.16;
+    draw(current);
+
+    if (Math.abs(target - current) > 0.001) {
+      raf = requestAnimationFrame(loop);
+    } else {
+      current = target;
+      draw(current);
+    }
+  }
+
+  function request(){
+    if (!raf) raf = requestAnimationFrame(loop);
+  }
+
+  let resizeTimer;
+  function onResize(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setHeroHeight();
+      current = target = 0;
+      readProgress();
+      draw(target);
+      request();
+    }, 120);
+  }
+
+  setHeroHeight();
+  readProgress();
+  draw(0);
+
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', onResize, { passive: true });
+})();
+
+(function revealBlocks(){
+  const items=document.querySelectorAll('.revealBlock, [data-parallax-text]');
+  if(!items.length)return;
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('is-visible')});
+  },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+  items.forEach(item=>observer.observe(item));
+})();
+
+
+(function caseStudyMedia(){
+  const steps=[...document.querySelectorAll('.caseStep')];
+  if(!steps.length)return;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking=false;
+
+  function clamp(n,min,max){return Math.min(Math.max(n,min),max)}
+  function stickyTop(){return window.innerWidth<=900 ? 0 : 128}
+  function panWindowHeight(){
+    // Finestra grande ma non più alta del viewport: resta leggibile accanto al testo.
+    return Math.min(Math.max(560, window.innerHeight - stickyTop() - 92), 820);
+  }
+
+  function getRenderedHeight(img, mediaWidth){
+    const ratio=(img.naturalWidth && img.naturalHeight) ? img.naturalWidth/img.naturalHeight : 1.6;
+    return mediaWidth / ratio;
+  }
+
+  function prepare(){
+    steps.forEach(step=>{
+      const media=step.querySelector('.caseStep__media');
+      const img=media && media.querySelector('img');
+      if(!media || !img)return;
+
+      step.classList.remove('is-pannable');
+      step.style.removeProperty('--pan-window');
+      step.style.removeProperty('--pan-extra');
+      img.style.setProperty('--img-y','0px');
+
+      if(window.innerWidth<=900 || reduce)return;
+
+      const mediaWidth=media.clientWidth;
+      const windowH=panWindowHeight();
+      const renderedH=getRenderedHeight(img, mediaWidth);
+      const extra=Math.max(0, renderedH - windowH);
+
+      // Solo immagini realmente più alte della finestra scorrono.
+      if(extra > 36){
+        step.classList.add('is-pannable');
+        step.style.setProperty('--pan-window', `${windowH.toFixed(2)}px`);
+        step.style.setProperty('--pan-extra', `${extra.toFixed(2)}px`);
+      }
+    });
+  }
+
+  function render(){
+    ticking=false;
+    if(window.innerWidth<=900 || reduce)return;
+
+    steps.forEach(step=>{
+      if(!step.classList.contains('is-pannable'))return;
+
+      const media=step.querySelector('.caseStep__media');
+      const img=media && media.querySelector('img');
+      if(!media || !img)return;
+
+      const rect=step.getBoundingClientRect();
+      const extra=parseFloat(getComputedStyle(step).getPropertyValue('--pan-extra')) || 0;
+      if(extra<=0)return;
+
+      // Progress parte quando la sezione arriva sotto la nav/sticky top:
+      // all'inizio vedi la parte alta dell'immagine, poi scorre SOLO l'immagine.
+      const start=stickyTop();
+      const progress=clamp((start - rect.top) / extra, 0, 1);
+      const move=-extra * progress;
+
+      img.style.setProperty('--img-y', `${move.toFixed(2)}px`);
+    });
+  }
+
+  function request(){
+    if(!ticking){
+      ticking=true;
       requestAnimationFrame(render);
     }
   }
 
-  render();
+  function refresh(){
+    prepare();
+    render();
+  }
 
-  window.addEventListener('scroll', requestRender, { passive: true });
-  window.addEventListener('resize', requestRender, { passive: true });
+  window.addEventListener('load', refresh);
+  window.addEventListener('resize', refresh, {passive:true});
+  window.addEventListener('scroll', request, {passive:true});
+  steps.forEach(step=>{
+    const img=step.querySelector('.caseStep__media img');
+    if(img && !img.complete) img.addEventListener('load', refresh, {once:true});
+  });
+  refresh();
 })();
