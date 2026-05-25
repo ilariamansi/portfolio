@@ -205,7 +205,7 @@
     font-weight: 800;
     letter-spacing: .18em;
     text-transform: uppercase;
-   
+    color: rgba(21, 26, 24, .56)
 }
 
 .sceneBridge {
@@ -218,7 +218,7 @@
     align-items: center;
     gap: 28px;
     background: linear-gradient(180deg, #d5d0bf 0%, var(--paper) 72%);
-    
+    color: rgba(21, 26, 24, .62)
 }
 
 .sceneBridge__line {
@@ -900,5 +900,86 @@ max-width:38rem;
   .artHero__text--two p{
     font-size:clamp(40px,16vw,66px);
     max-width:7.5ch;
+  }
+}
+
+
+/* === PATCH MOBILE HERO: scena più stretta, niente flash, uscita verso chiaro === */
+@media (max-width: 640px) {
+  .artHero {
+    height: 275vh;
+    background: var(--paper);
+  }
+
+  .artHero__sticky {
+    height: 100dvh;
+    min-height: 100dvh;
+    background: var(--paper);
+  }
+
+  .artHero__scene {
+    background: var(--paper);
+  }
+
+  .artHero__layer {
+    width: 94vw;
+    height: 100dvh;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  .artHero__base,
+  .artHero__sea {
+    width: 96vw;
+    height: 100dvh;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  .artHero__trees {
+    width: 112vw;
+    height: 100dvh;
+    object-fit: contain;
+    object-position: center center;
+    opacity: .92;
+    transform-origin: 50% 50%;
+  }
+
+  .artHero__shell {
+    width: 88vw;
+    height: 100dvh;
+    object-fit: contain;
+    object-position: center center;
+    transform-origin: 50% 55%;
+  }
+
+  .artHero__scene:before {
+    background: linear-gradient(
+      180deg,
+      rgba(239,228,208,.10) 0%,
+      rgba(239,228,208,0) 42%,
+      rgba(239,228,208,.26) 100%
+    );
+  }
+
+  .artHero__scene:after,
+  .artHero::after {
+    display: none !important;
+  }
+
+  .artHero__sticky:after {
+    background: linear-gradient(
+      180deg,
+      rgba(239,228,208,0) 0%,
+      rgba(239,228,208,.35) 58%,
+      var(--paper) 100%
+    );
+    opacity: var(--wash-opacity);
+  }
+
+  .sceneBridge {
+    margin-top: -1px;
+    padding-top: 72px;
+    background: var(--paper);
   }
 }

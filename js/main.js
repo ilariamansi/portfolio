@@ -62,27 +62,27 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        maxScale: 2.15,
-        y: 46,
-        treeScale: 1.34,
-        treeY: 28,
-        shellScale: 1.18,
-        shellY: 44,
-        drift: 34,
-        height: 3.2
+        maxScale: 1.58,
+        y: 18,
+        treeScale: 1.10,
+        treeY: 10,
+        shellScale: 1.04,
+        shellY: 18,
+        drift: 18,
+        height: 2.75
       };
     }
     if (w <= 900) {
       return {
         mode: 'tablet',
-        maxScale: 2.65,
-        y: 70,
-        treeScale: 1.55,
-        treeY: 46,
-        shellScale: 1.32,
-        shellY: 68,
-        drift: 58,
-        height: 3.8
+        maxScale: 2.05,
+        y: 44,
+        treeScale: 1.24,
+        treeY: 28,
+        shellScale: 1.12,
+        shellY: 36,
+        drift: 38,
+        height: 3.35
       };
     }
     return {
@@ -102,10 +102,12 @@
   let target = 0;
   let current = 0;
   let raf = null;
+  let lastWidth = window.innerWidth;
 
   function setHeroHeight(){
     cfg = settings();
-    hero.style.height = `${Math.round(window.innerHeight * cfg.height)}px`;
+    const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    hero.style.height = `${Math.round(h * cfg.height)}px`;
   }
 
   function readProgress(){
@@ -184,12 +186,18 @@
 
   let resizeTimer;
   function onResize(){
+    const widthChanged = Math.abs(window.innerWidth - lastWidth) > 12;
+
+    // Su mobile la barra del browser cambia altezza mentre scrolli: se ricalcoli tutto, vedi flash/scatti.
+    // Quindi ignoriamo i micro-resize verticali e aggiorniamo solo se cambia davvero la larghezza.
+    if (cfg.mode === 'mobile' && !widthChanged) return;
+
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
+      lastWidth = window.innerWidth;
       setHeroHeight();
-      current = target = 0;
       readProgress();
-      draw(target);
+      draw(current);
       request();
     }, 120);
   }
