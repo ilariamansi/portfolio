@@ -1057,23 +1057,23 @@ max-width:38rem;
 
   .artHero__base,
   .artHero__sea{
-    width: 118vw!important;
+    width: 100vw!important;
     height: 100svh!important;
     object-fit: cover!important;
     object-position: center center!important;
   }
 
   .artHero__trees{
-    width: 112vw!important;
-    height: auto!important;
-    aspect-ratio: 1600 / 995!important;
+    width: 170vw!important;
+    height: 88svh!important;
+    aspect-ratio: 1500 / 995!important;
     top: 43%!important;
-    left: 50%!important;
+    left: 48%!important;
     object-fit: contain!important;
     object-position: center center!important;
     opacity: .98!important;
     z-index: 3!important;
-    transform-origin: 50% 48%!important;
+    transform-origin: 40% 48%!important;
   }
 
   .artHero__shell{
@@ -1081,7 +1081,7 @@ max-width:38rem;
     height: 100svh!important;
     object-fit: cover!important;
     object-position: center center!important;
-    transform-origin: 50% 56%!important;
+    transform-origin: 40% 60%!important;
   }
 
   .artHero__sticky:after{
