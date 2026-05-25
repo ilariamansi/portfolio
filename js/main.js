@@ -197,7 +197,7 @@
 
       // Su mobile la barra del browser cambia l'altezza durante lo scroll:
       // se aggiorniamo la scena a ogni micro-resize, compare il flash.
-      const isMobile = nextW <= 640;
+      const isMobile = nextW <= 900;
       const widthChanged = Math.abs(nextW - stableW) > 24;
       const heightChanged = Math.abs(nextH - stableH) > 120;
 
