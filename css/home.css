@@ -1049,7 +1049,7 @@ max-width:38rem;
 /* === PATCH MOBILE TREES + FINALE PIÙ MORBIDO ===
    Mantiene la scena full screen, ma mostra l'intero layer alberi invece di cropparlo ai lati.
    Il layer alberi è trasparente, quindi può stare contenuto in larghezza sopra la scena full-screen. */
-@media (max-width: 640px){
+@media (max-width: 900px){
   .artHero{
     height: 385svh!important;
     min-height: 385svh!important;
