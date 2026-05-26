@@ -67,10 +67,10 @@
         height: 8.6,          // scroll più guidato
         maxScale: 2.45,       // zoom mobile più percepibile
         sceneY: 68,
-        treeX: 42,            // alberi più a destra / dentro la scena
+        treeX: 10,            // alberi più a destra / dentro la scena
         treeY: 8,
         treeScale: 1.18,
-        shellX: 0,
+        shellX: -18,
         shellY: 106,
         shellScale: 1.34,
         drift: 34
@@ -99,8 +99,8 @@
       treeX: 0,
       treeY: 88,
       treeScale: 1.95,
-      shellX: 0,
-      shellY: 126,
+      shellX: -28,
+      shellY: 168,
       shellScale: 1.55,
       drift: 96
     };
@@ -149,8 +149,10 @@
     const treeOut = isMobile ? smoothstep(.78, .98, p) : smoothstep(.72, .98, p);
    const sceneFade = isMobile ? 1 - smoothstep(.86, .995, p) : 1;
 
-    setTransform(base, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
-    setTransform(sea, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
+    const sceneX = isMobile ? -18 : 0;
+
+    setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
+    setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
 
     // Alberi mobile: quasi fermi, full-height e spostati a sinistra. Non devono sparire ai lati.
     setTransform(trees, `translate3d(calc(-50% + ${cfg.treeX + deep * -10}px), calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`);

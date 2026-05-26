@@ -1265,14 +1265,14 @@ max-width:38rem;
 
 /* === PATCH FINALE MOBILE: alberi dentro scena + dissolvenza vera === */
 @media (max-width:640px){
-  .artHero__trees{
-    left: 55% !important;
-    width: 168vw !important;
-    height: 100svh !important;
-    object-fit: cover !important;
-    object-position: 72% center !important;
-    transform-origin: 55% 50% !important;
-  }
+ .artHero__trees{
+  left: 50% !important;
+  width: 170vw !important;
+  height: 100svh !important;
+  object-fit: cover !important;
+  object-position: 64% center !important;
+  transform-origin: 50% 50% !important;
+}
 
   .artHero__sticky::after{
     content:"" !important;
