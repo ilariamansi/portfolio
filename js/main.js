@@ -64,15 +64,15 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        height: 5.2,          // più strada = scroll più guidato, meno scena persa con uno swipe
-        maxScale: 2.45,
-        sceneY: 64,
-        treeX: -34,
-        treeY: 28,
-        treeScale: 1.32,
+        height: 7.4,          // scroll più guidato
+        maxScale: 2.45,       // zoom mobile più percepibile
+        sceneY: 68,
+        treeX: 42,            // alberi più a destra / dentro la scena
+        treeY: 8,
+        treeScale: 1.18,
         shellX: 0,
-        shellY: 86,
-        shellScale: 1.36,
+        shellY: 106,
+        shellScale: 1.34,
         drift: 34
       };
     }
@@ -138,15 +138,16 @@
     const isMobile = cfg.mode === 'mobile';
 
     // Su mobile la curva è più lunga e meno violenta: niente zoom aggressivo, niente rincorsa.
-  const zoom = cfg.mode === 'mobile' ? smoothstep(.01, .72, p) : smoothstep(.05, .88, p);
+    const zoom = isMobile ? smoothstep(.01, .74, p) : smoothstep(.05, .88, p);
     const deep = isMobile ? zoom : Math.pow(zoom, 1.16);
     const scale = 1 + deep * (cfg.maxScale - 1);
     const y = -deep * cfg.sceneY;
 
     const baseOut = 1 - smoothstep(.08, .30, p);
     const copyOut = smoothstep(.04, .18, p);
-    const shellOut = isMobile ? smoothstep(.48, .82, p) : smoothstep(.40, .86, p);
-    const treeOut = isMobile ? smoothstep(.88, 1, p) : smoothstep(.72, .98, p);
+    const shellOut = isMobile ? smoothstep(.46, .82, p) : smoothstep(.40, .86, p);
+    const treeOut = isMobile ? smoothstep(.78, .98, p) : smoothstep(.72, .98, p);
+    const sceneFade = isMobile ? 1 - smoothstep(.78, .98, p) : 1;
 
     setTransform(base, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
@@ -157,13 +158,13 @@
     // Conchiglia: resta protagonista all'inizio, poi sparisce davvero.
     setTransform(shell, `translate3d(calc(-50% + ${cfg.shellX}px), calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 12}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
 
-    setOpacity(base, baseOut);
-    setOpacity(trees, isMobile ? 1 - treeOut * .18 : 1 - treeOut * .55);
-    setOpacity(shell, 1 - shellOut);
+    setOpacity(base, baseOut * sceneFade);
+    setOpacity(sea, sceneFade);
+    setOpacity(trees, isMobile ? (1 - treeOut * .18) * sceneFade : 1 - treeOut * .55);
+    setOpacity(shell, (1 - shellOut) * sceneFade);
 
-    // Il flash bianco era causato dal wash mobile mentre la hero era ancora sticky.
-    // Su mobile lo disattiviamo: il passaggio al paper lo fa la section successiva, non un overlay sopra la scena.
-    hero.style.setProperty('--wash-opacity', isMobile ? '0' : smoothstep(.72, .98, p).toFixed(3));
+    // Su mobile la transizione deve dissolvere la scena, non coprirla con una patina.
+    hero.style.setProperty('--wash-opacity', isMobile ? smoothstep(.80, .98, p).toFixed(3) : smoothstep(.72, .98, p).toFixed(3));
     hero.style.setProperty('--cinematic-opacity', '0');
 
     setOpacity(copy, 1 - copyOut);

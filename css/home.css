@@ -1261,31 +1261,33 @@ max-width:38rem;
     background: var(--paper) !important;
   }
 }
+
+
+/* === PATCH FINALE MOBILE: alberi dentro scena + dissolvenza vera === */
 @media (max-width:640px){
+  .artHero__trees{
+    left: 55% !important;
+    width: 168vw !important;
+    height: 100svh !important;
+    object-fit: cover !important;
+    object-position: 72% center !important;
+    transform-origin: 55% 50% !important;
+  }
+
   .artHero__sticky::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:6;
-    pointer-events:none;
-    background:linear-gradient(
-      180deg,
-      rgba(245,244,239,0) 0%,
-      rgba(245,244,239,0) 62%,
-      rgba(245,244,239,.28) 84%,
-      var(--paper) 100%
-    );
-    opacity:var(--wash-opacity);
+    content:"" !important;
+    display:block !important;
+    position:absolute !important;
+    inset:0 !important;
+    z-index:6 !important;
+    pointer-events:none !important;
+    background: var(--paper) !important;
+    opacity: var(--wash-opacity) !important;
   }
 
   .sceneBridge{
-    margin-top:-1px!important;
-    padding-top:72px!important;
-    background:linear-gradient(
-      180deg,
-      rgba(245,244,239,.96) 0%,
-      var(--paper) 42%,
-      var(--paper) 100%
-    )!important;
+    margin-top:-1px !important;
+    padding-top:72px !important;
+    background: var(--paper) !important;
   }
 }
