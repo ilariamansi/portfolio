@@ -1094,26 +1094,27 @@ max-width:38rem;
 }
 
 
-/* === FINAL MOBILE HERO OVERRIDE — 26/05
-   Da tenere in fondo al file. Serve a ripulire le patch precedenti senza toccare i progetti. */
-
+/* === MOBILE HERO FINAL FIX — full screen, no flash, alberi visibili ===
+   Questo blocco deve restare in fondo al file: neutralizza le patch precedenti della hero mobile. */
 @media (max-width: 640px){
   .artHero{
-    height: 565svh !important;
-    min-height: 565svh !important;
+    height: 720svh !important;
+    min-height: 720svh !important;
     overflow: visible !important;
     background: var(--paper) !important;
-    contain: paint style !important;
+    contain: none !important;
   }
 
   .artHero__sticky{
     position: sticky !important;
     top: 0 !important;
-    width: 100% !important;
     height: 100svh !important;
     min-height: 100svh !important;
+    width: 100% !important;
     overflow: hidden !important;
     background: #cfc5ad !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
   }
 
   .artHero__scene{
@@ -1122,6 +1123,7 @@ max-width:38rem;
     width: 100vw !important;
     height: 100svh !important;
     overflow: hidden !important;
+    background: #cfc5ad !important;
   }
 
   .artHero__layer{
@@ -1137,26 +1139,26 @@ max-width:38rem;
   .artHero__base,
   .artHero__sea{
     left: 50% !important;
-    width: 118vw !important;
+    width: 120vw !important;
     height: 100svh !important;
     object-fit: cover !important;
     object-position: center center !important;
   }
 
-  /* Alberi: full-height, scenografici, spostati a sinistra. */
+  /* Alberi: full-screen reale. Il PNG viene croppato sul lato giusto,
+     così tronchi e chioma entrano nello schermo invece di restare fuori a destra. */
   .artHero__trees{
-    left: 38% !important;
+    left: 50% !important;
     top: 50% !important;
-    width: 168vw !important;
+    width: 176vw !important;
     height: 100svh !important;
     object-fit: cover !important;
-    object-position: center center !important;
-    transform-origin: 44% 50% !important;
-    opacity: .98 !important;
+    object-position: 82% center !important;
+    transform-origin: 58% 50% !important;
+    opacity: 1 !important;
     z-index: 3 !important;
   }
 
-  /* Conchiglia: proporzionata e destinata a sparire via JS a fine scroll. */
   .artHero__shell{
     left: 50% !important;
     top: 50% !important;
@@ -1164,8 +1166,27 @@ max-width:38rem;
     height: 100svh !important;
     object-fit: cover !important;
     object-position: center center !important;
-    transform-origin: 48% 58% !important;
+    transform-origin: 48% 60% !important;
     z-index: 2 !important;
+  }
+
+  /* Flash bianchi: via il wash durante lo sticky. */
+  .artHero::after,
+  .artHero__sticky::after{
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
+    background: none !important;
+  }
+
+  .artHero__scene::before{
+    background: linear-gradient(90deg, rgba(17,19,18,.08), rgba(242,234,219,.02) 50%, rgba(17,19,18,.06)) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .artHero__scene::after{
+    background: linear-gradient(180deg, rgba(251,243,228,.02), rgba(17,19,18,.035) 60%, rgba(17,19,18,.02)) !important;
+    mix-blend-mode: normal !important;
   }
 
   .artHero__copy{
@@ -1209,9 +1230,8 @@ max-width:38rem;
     text-align: left !important;
   }
 
-  /* Secondo testo: meno colonna verticale, più frase compatta. */
   .artHero__text--two{
-    top: 39vh !important;
+    top: 38vh !important;
     bottom: auto !important;
     left: var(--pad-x) !important;
     right: var(--pad-x) !important;
@@ -1221,10 +1241,10 @@ max-width:38rem;
 
   .artHero__text--two p{
     font-family: var(--font-serif) !important;
-    font-size: clamp(38px, 12.5vw, 56px) !important;
-    line-height: .90 !important;
-    letter-spacing: -.075em !important;
-    max-width: 10.8ch !important;
+    font-size: clamp(36px, 10.8vw, 50px) !important;
+    line-height: .92 !important;
+    letter-spacing: -.07em !important;
+    max-width: 13.5ch !important;
     text-transform: none !important;
   }
 
@@ -1235,24 +1255,37 @@ max-width:38rem;
     text-align: left !important;
   }
 
-  /* Niente bordo nero finale. La dissolvenza va verso carta, non verso buio. */
-  .artHero::after{
-    content: none !important;
-    display: none !important;
-  }
-
-  .artHero__sticky:after{
-    background: linear-gradient(180deg,
-      rgba(245,244,239,0) 0%,
-      rgba(245,244,239,.04) 62%,
-      rgba(245,244,239,.24) 84%,
-      var(--paper) 100%) !important;
-    mix-blend-mode: normal !important;
-  }
-
   .sceneBridge{
     margin-top: -1px !important;
     padding-top: 72px !important;
     background: var(--paper) !important;
+  }
+}
+@media (max-width:640px){
+  .artHero__sticky::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:6;
+    pointer-events:none;
+    background:linear-gradient(
+      180deg,
+      rgba(245,244,239,0) 0%,
+      rgba(245,244,239,0) 62%,
+      rgba(245,244,239,.28) 84%,
+      var(--paper) 100%
+    );
+    opacity:var(--wash-opacity);
+  }
+
+  .sceneBridge{
+    margin-top:-1px!important;
+    padding-top:72px!important;
+    background:linear-gradient(
+      180deg,
+      rgba(245,244,239,.96) 0%,
+      var(--paper) 42%,
+      var(--paper) 100%
+    )!important;
   }
 }
