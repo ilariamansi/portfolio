@@ -65,14 +65,14 @@
       return {
         mode: 'mobile',
         height: 7.2,          // più strada = scroll più guidato, meno scena persa con uno swipe
-        maxScale: 1.34,
+        maxScale: 2.05,
         sceneY: 22,
         treeX: -72,
         treeY: 0,
         treeScale: 1.02,
         shellX: 0,
         shellY: 76,
-        shellScale: 1.12,
+        shellScale: 1.22,
         drift: 22
       };
     }
@@ -138,7 +138,7 @@
     const isMobile = cfg.mode === 'mobile';
 
     // Su mobile la curva è più lunga e meno violenta: niente zoom aggressivo, niente rincorsa.
-    const zoom = isMobile ? smoothstep(.08, .94, p) : smoothstep(.05, .88, p);
+  const zoom = cfg.mode === 'mobile' ? smoothstep(.02, .82, p) : smoothstep(.05, .88, p);
     const deep = isMobile ? zoom : Math.pow(zoom, 1.16);
     const scale = 1 + deep * (cfg.maxScale - 1);
     const y = -deep * cfg.sceneY;
