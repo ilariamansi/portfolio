@@ -65,7 +65,7 @@
       return {
         mode: 'mobile',
         height: 7.2,          // più strada = scroll più guidato, meno scena persa con uno swipe
-        maxScale: 2.05,
+        maxScale: 2.2,
         sceneY: 22,
         treeX: -72,
         treeY: 0,
