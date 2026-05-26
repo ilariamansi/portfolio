@@ -62,27 +62,31 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        maxScale: 1.52,
-        y: 18,
-        treeScale: 1.08,
-        treeY: 8,
-        shellScale: 1.035,
-        shellY: 14,
-        drift: 18,
-        height: 3.85
+        maxScale: 1.72,
+        y: 34,
+        treeScale: 1.18,
+        treeY: 18,
+        treeX: -18,
+        shellScale: 1.16,
+        shellY: 72,
+        shellX: 8,
+        drift: 28,
+        height: 5.65
       };
     }
     if (w <= 900) {
       return {
         mode: 'tablet',
-        maxScale: 2.65,
-        y: 70,
-        treeScale: 1.55,
+        maxScale: 2.35,
+        y: 68,
+        treeScale: 1.45,
         treeY: 46,
-        shellScale: 1.32,
-        shellY: 68,
-        drift: 58,
-        height: 3.8
+        treeX: -10,
+        shellScale: 1.28,
+        shellY: 96,
+        shellX: 4,
+        drift: 54,
+        height: 4.6
       };
     }
     return {
@@ -133,17 +137,17 @@
     const baseOut = 1 - smoothstep(.08, .30, p);
     const wash = smoothstep(.68, .98, p);
     const copyOut = smoothstep(.04, .18, p);
-    const shellOut = smoothstep(.38, .74, p);
-    const treeOut = smoothstep(.60, .92, p);
+    const shellOut = smoothstep(.40, .86, p);
+    const treeOut = smoothstep(.72, .98, p);
 
     setTransform(base, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
-    setTransform(trees, `translate3d(-50%, calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`);
-    setTransform(shell, `translate3d(-50%, calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 18}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
+    setTransform(trees, `translate3d(calc(-50% + ${deep * (cfg.treeX || 0)}px), calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`);
+    setTransform(shell, `translate3d(calc(-50% + ${deep * (cfg.shellX || 0)}px), calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 16}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
 
     setOpacity(base, baseOut);
-    setOpacity(trees, cfg.mode === 'mobile' ? .98 - treeOut * .06 : 1 - treeOut * .55);
-    setOpacity(shell, 1 - shellOut * .85);
+    setOpacity(trees, cfg.mode === 'mobile' ? .98 - treeOut * .18 : 1 - treeOut * .55);
+    setOpacity(shell, Math.max(0, 1 - shellOut));
     hero.style.setProperty('--wash-opacity', wash.toFixed(3));
     hero.style.setProperty('--cinematic-opacity', smoothstep(.62, .96, p).toFixed(3));
 
@@ -151,7 +155,7 @@
     setTransform(copy, `translate3d(0, ${-34 * copyOut}px, 0)`);
 
     const one = smoothstep(.10, .20, p) * (1 - smoothstep(.31, .44, p));
-    const two = smoothstep(.26, .40, p) * (1 - smoothstep(.54, .70, p));
+    const two = smoothstep(.24, .39, p) * (1 - smoothstep(.55, .76, p));
     const three = smoothstep(.50, .65, p) * (1 - smoothstep(.74, .90, p));
     const drift = deep * cfg.drift;
 
@@ -172,8 +176,9 @@
     // Su mobile usiamo un aggancio più reattivo, altrimenti a fine hero lo sticky si sgancia
     // mentre l'animazione sta ancora rincorrendo il target: è lì che nasce il saltino.
     const isMobile = cfg.mode === 'mobile';
-    const ease = isMobile ? (target > .90 ? .52 : .34) : .16;
+    const ease = isMobile ? (target > .84 ? .92 : .48) : .18;
     current += (target - current) * ease;
+    if (isMobile && target > .93) current = target;
     draw(current);
 
     if (Math.abs(target - current) > 0.001) {

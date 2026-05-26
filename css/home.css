@@ -1092,3 +1092,167 @@ max-width:38rem;
       var(--paper) 100%)!important;
   }
 }
+
+
+/* === FINAL MOBILE HERO OVERRIDE — 26/05
+   Da tenere in fondo al file. Serve a ripulire le patch precedenti senza toccare i progetti. */
+
+@media (max-width: 640px){
+  .artHero{
+    height: 565svh !important;
+    min-height: 565svh !important;
+    overflow: visible !important;
+    background: var(--paper) !important;
+    contain: paint style !important;
+  }
+
+  .artHero__sticky{
+    position: sticky !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    overflow: hidden !important;
+    background: #cfc5ad !important;
+  }
+
+  .artHero__scene{
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100svh !important;
+    overflow: hidden !important;
+  }
+
+  .artHero__layer{
+    position: absolute !important;
+    top: 50% !important;
+    max-width: none !important;
+    height: 100svh !important;
+    will-change: transform, opacity !important;
+    backface-visibility: hidden !important;
+    filter: none !important;
+  }
+
+  .artHero__base,
+  .artHero__sea{
+    left: 50% !important;
+    width: 118vw !important;
+    height: 100svh !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+
+  /* Alberi: full-height, scenografici, spostati a sinistra. */
+  .artHero__trees{
+    left: 38% !important;
+    top: 50% !important;
+    width: 168vw !important;
+    height: 100svh !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    transform-origin: 44% 50% !important;
+    opacity: .98 !important;
+    z-index: 3 !important;
+  }
+
+  /* Conchiglia: proporzionata e destinata a sparire via JS a fine scroll. */
+  .artHero__shell{
+    left: 50% !important;
+    top: 50% !important;
+    width: 112vw !important;
+    height: 100svh !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    transform-origin: 48% 58% !important;
+    z-index: 2 !important;
+  }
+
+  .artHero__copy{
+    left: var(--pad-x) !important;
+    right: var(--pad-x) !important;
+    bottom: max(34px, env(safe-area-inset-bottom)) !important;
+    width: auto !important;
+    transform-origin: left bottom !important;
+  }
+
+  .artHero__copy h1{
+    font-size: clamp(42px, 15vw, 70px) !important;
+    line-height: .94 !important;
+    max-width: 8.5ch !important;
+  }
+
+  .artHero__copy p:last-child{
+    max-width: 25rem !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .artHero__text{
+    left: var(--pad-x) !important;
+    right: var(--pad-x) !important;
+    width: auto !important;
+    z-index: 9 !important;
+  }
+
+  .artHero__text p{
+    font-family: var(--font-sans) !important;
+    font-size: 12px !important;
+    line-height: 1.16 !important;
+    letter-spacing: .1em !important;
+    max-width: 19ch !important;
+  }
+
+  .artHero__text--one{
+    top: calc(var(--nav-h) + 74px) !important;
+    bottom: auto !important;
+    text-align: left !important;
+  }
+
+  /* Secondo testo: meno colonna verticale, più frase compatta. */
+  .artHero__text--two{
+    top: 39vh !important;
+    bottom: auto !important;
+    left: var(--pad-x) !important;
+    right: var(--pad-x) !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  .artHero__text--two p{
+    font-family: var(--font-serif) !important;
+    font-size: clamp(38px, 12.5vw, 56px) !important;
+    line-height: .90 !important;
+    letter-spacing: -.075em !important;
+    max-width: 10.8ch !important;
+    text-transform: none !important;
+  }
+
+  .artHero__text--three{
+    left: var(--pad-x) !important;
+    right: var(--pad-x) !important;
+    bottom: 17vh !important;
+    text-align: left !important;
+  }
+
+  /* Niente bordo nero finale. La dissolvenza va verso carta, non verso buio. */
+  .artHero::after{
+    content: none !important;
+    display: none !important;
+  }
+
+  .artHero__sticky:after{
+    background: linear-gradient(180deg,
+      rgba(245,244,239,0) 0%,
+      rgba(245,244,239,.04) 62%,
+      rgba(245,244,239,.24) 84%,
+      var(--paper) 100%) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  .sceneBridge{
+    margin-top: -1px !important;
+    padding-top: 72px !important;
+    background: var(--paper) !important;
+  }
+}

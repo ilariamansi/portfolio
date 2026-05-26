@@ -17,9 +17,9 @@ html {
     --max: 1520px;
     --pad-x: clamp(22px, 4vw, 76px);
     --nav-h: 82px;
-    --ink: #111312;
+    --ink: #fff4df;
     --muted: rgba(17, 19, 18, .64);
-    --paper: #efe4d0;
+    --paper: #8F8D79;
     --paper-2: #ded1b8;
     --cream: #fff4df;
     --dark: #111312;
@@ -289,7 +289,7 @@ textarea {
 .button--dark,
 .homeButton--dark,
 .btn--primary {
-    background: var(--ink);
+    background: var(--dark);
     color: var(--cream) !important
 }
 
@@ -720,11 +720,8 @@ body{
     opacity:.82;
     filter:saturate(1.05) contrast(1.03) brightness(.66);
 }
-.siteFooter:after{
-    background:
-      linear-gradient(90deg, rgba(17,19,18,.82), rgba(104,117,94,.38) 42%, rgba(107,132,150,.34) 64%, rgba(17,19,18,.78)),
-      radial-gradient(circle at 70% 40%, rgba(155,84,75,.22), transparent 38%);
-}
+
+
 .siteFooter__brand{
     color:#fff4df;
 }
