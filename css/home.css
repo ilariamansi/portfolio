@@ -1138,7 +1138,7 @@ max-width:38rem;
 
   .artHero__base,
   .artHero__sea{
-    left: 58% !important;
+    left: 48% !important;
     width: 120vw !important;
     height: 100svh !important;
     object-fit: cover !important;
@@ -1148,7 +1148,7 @@ max-width:38rem;
   /* Alberi: full-screen reale. Il PNG viene croppato sul lato giusto,
      così tronchi e chioma entrano nello schermo invece di restare fuori a destra. */
   .artHero__trees{
-    left: 58% !important;
+    left: 48% !important;
     top: 50% !important;
     width: 176vw !important;
     height: 100svh !important;
@@ -1160,7 +1160,7 @@ max-width:38rem;
   }
 
   .artHero__shell{
-    left: 58% !important;
+    left: 50% !important;
     top: 50% !important;
     width: 112vw !important;
     height: 100svh !important;

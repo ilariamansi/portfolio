@@ -64,7 +64,7 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        height: 7.4,          // scroll più guidato
+        height: 8.6,          // scroll più guidato
         maxScale: 2.45,       // zoom mobile più percepibile
         sceneY: 68,
         treeX: 42,            // alberi più a destra / dentro la scena
@@ -147,7 +147,7 @@
     const copyOut = smoothstep(.04, .18, p);
     const shellOut = isMobile ? smoothstep(.46, .82, p) : smoothstep(.40, .86, p);
     const treeOut = isMobile ? smoothstep(.78, .98, p) : smoothstep(.72, .98, p);
-    const sceneFade = isMobile ? 1 - smoothstep(.78, .98, p) : 1;
+   const sceneFade = isMobile ? 1 - smoothstep(.86, .995, p) : 1;
 
     setTransform(base, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(-50%, calc(-50% + ${y}px), 0) scale(${scale})`);
@@ -164,7 +164,7 @@
     setOpacity(shell, (1 - shellOut) * sceneFade);
 
     // Su mobile la transizione deve dissolvere la scena, non coprirla con una patina.
-    hero.style.setProperty('--wash-opacity', isMobile ? smoothstep(.80, .98, p).toFixed(3) : smoothstep(.72, .98, p).toFixed(3));
+    hero.style.setProperty('--wash-opacity', isMobile ? smoothstep(.88, .995, p).toFixed(3) : smoothstep(.72, .98, p).toFixed(3));
     hero.style.setProperty('--cinematic-opacity', '0');
 
     setOpacity(copy, 1 - copyOut);
