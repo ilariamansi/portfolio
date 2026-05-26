@@ -31,11 +31,13 @@
 })();
 
 
+
 (function artHero(){
   const hero = document.querySelector('.artHero');
   if (!hero) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const base = hero.querySelector('.artHero__base');
   const sea = hero.querySelector('.artHero__sea');
   const shell = hero.querySelector('.artHero__shell');
@@ -45,64 +47,75 @@
   const textTwo = hero.querySelector('.artHero__text--two');
   const textThree = hero.querySelector('.artHero__text--three');
   const scrollHint = hero.querySelector('.artHero__scroll');
-
-  if (reduce) return;
+  const next = hero.querySelector('.artHero__next');
 
   const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+
   function smoothstep(edge0, edge1, x){
     const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
     return t * t * (3 - 2 * t);
   }
 
   function getViewportHeight(){
-    // Usa un'altezza stabile: su Chrome mobile la barra URL cambia altezza e crea flash.
     return Math.max(window.innerHeight || 0, document.documentElement.clientHeight || 0);
   }
 
   function settings(){
     const w = window.innerWidth;
+
     if (w <= 640) {
       return {
         mode: 'mobile',
-        height: 9.2,
-        maxScale: 4.2,
-        sceneY: 130,
-        treeX: 10,            // alberi più a destra / dentro la scena
-        treeY: 8,
+        height: 10.4,
+        maxScale: 4.6,
+        tunnelBoost: 1.55,
+        sceneY: 150,
+        sceneX: -18,
+        treeX: 4,
+        treeY: 10,
         treeScale: 1.18,
         shellX: -18,
-        shellY: 150,
+        shellY: 165,
         shellScale: 1.34,
-        drift: 34
+        drift: 34,
+        smoothing: 1
       };
     }
+
     if (w <= 900) {
       return {
         mode: 'tablet',
-        height: 5.2,
-        maxScale: 2.15,
-        sceneY: 64,
-        treeX: -34,
-        treeY: 20,
-        treeScale: 1.22,
-        shellX: 0,
-        shellY: 92,
-        shellScale: 1.22,
-        drift: 48
+        height: 7.2,
+        maxScale: 3.2,
+        tunnelBoost: 1.7,
+        sceneY: 116,
+        sceneX: -8,
+        treeX: -24,
+        treeY: 24,
+        treeScale: 1.34,
+        shellX: -10,
+        shellY: 120,
+        shellScale: 1.25,
+        drift: 54,
+        smoothing: .28
       };
     }
+
     return {
       mode: 'desktop',
-      height: 5.6,
-      maxScale: 5.8,
-      sceneY: 320,
+      height: 7.2,
+      maxScale: 5.4,
+      tunnelBoost: 3.6,
+      sceneY: 330,
+      sceneX: 0,
       treeX: 0,
-      treeY: 88,
-      treeScale: 1.95,
+      treeY: 92,
+      treeScale: 1.9,
       shellX: -28,
       shellY: 210,
       shellScale: 1.55,
-      drift: 96
+      drift: 98,
+      smoothing: .22
     };
   }
 
@@ -137,42 +150,57 @@
   function draw(p){
     const isMobile = cfg.mode === 'mobile';
 
-    // Su mobile la curva è più lunga e meno violenta: niente zoom aggressivo, niente rincorsa.
+    /*
+      Tunnel timing:
+      0.00–0.56  scena + testi
+      0.56–0.78  conchiglia esce
+      0.72–0.94  ultra-zoom nel mare
+      0.82–1.00  nuova schermata appare nello stesso viewport
+    */
     const zoom = isMobile ? smoothstep(.04, .88, p) : smoothstep(.04, .90, p);
-    const deep = isMobile ? zoom : Math.pow(zoom, 1.16);
-    const finalBoost = cfg.mode === 'desktop'
-  ? smoothstep(.72, .98, p) * 4.2
-  : smoothstep(.82, .995, p) * 1.2;
-    const scale = 1 + deep * (cfg.maxScale - 1) + finalBoost;
-    const y = -deep * cfg.sceneY;
+    const deep = isMobile ? zoom : Math.pow(zoom, 1.12);
+
+    // Seconda accelerazione finale: non parte subito, quindi evita lo scatto secco.
+    const tunnel = smoothstep(.72, .965, p);
+    const tunnelSoft = tunnel * tunnel * (3 - 2 * tunnel);
+
+    const scale = 1 + deep * (cfg.maxScale - 1) + tunnelSoft * cfg.tunnelBoost;
+    const y = -deep * cfg.sceneY - tunnelSoft * (isMobile ? 58 : 150);
+    const sceneX = cfg.sceneX + (isMobile ? 0 : tunnelSoft * -8);
 
     const baseOut = 1 - smoothstep(.08, .30, p);
     const copyOut = smoothstep(.04, .18, p);
-    const shellOut = isMobile ? smoothstep(.46, .82, p) : smoothstep(.40, .86, p);
-    const treeOut = isMobile ? smoothstep(.78, .98, p) : smoothstep(.72, .98, p);
-   const sceneFade = isMobile ? 1 - smoothstep(.86, .995, p) : 1;
 
-    const sceneX = isMobile ? -18 : 0;
+    const shellOut = isMobile ? smoothstep(.46, .84, p) : smoothstep(.36, .66, p);
+    const treeOut = isMobile ? smoothstep(.84, .99, p) : smoothstep(.80, .99, p);
+
+    // Dissolve della scena, non "patina sopra".
+    const sceneFade = 1 - smoothstep(isMobile ? .86 : .84, .995, p);
+    const wash = smoothstep(isMobile ? .88 : .86, .995, p);
+    const nextIn = smoothstep(.84, .985, p);
 
     setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
 
-    // Alberi mobile: quasi fermi, full-height e spostati a sinistra. Non devono sparire ai lati.
-    setTransform(trees, `translate3d(calc(-50% + ${cfg.treeX + deep * -10}px), calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`);
+    setTransform(
+      trees,
+      `translate3d(calc(-50% + ${cfg.treeX + deep * -8}px), calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`
+    );
 
-    // Conchiglia: resta protagonista all'inizio, poi sparisce davvero.
-    setTransform(shell, `translate3d(calc(-50% + ${cfg.shellX}px), calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 12}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
+    setTransform(
+      shell,
+      `translate3d(calc(-50% + ${cfg.shellX}px), calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 12}deg) scale(${1 + deep * (cfg.shellScale - 1)})`
+    );
 
     setOpacity(base, baseOut * sceneFade);
     setOpacity(sea, sceneFade);
-    setOpacity(trees, isMobile ? (1 - treeOut * .18) * sceneFade : 1 - treeOut * .55);
+    setOpacity(trees, (1 - treeOut * (isMobile ? .18 : .42)) * sceneFade);
     setOpacity(shell, (1 - shellOut) * sceneFade);
 
-    // Su mobile la transizione deve dissolvere la scena, non coprirla con una patina.
-    hero.style.setProperty('--wash-opacity', isMobile ? smoothstep(.88, .995, p).toFixed(3) : smoothstep(.72, .98, p).toFixed(3));
+    hero.style.setProperty('--wash-opacity', wash.toFixed(3));
     hero.style.setProperty('--cinematic-opacity', '0');
 
-    setOpacity(copy, 1 - copyOut);
+    setOpacity(copy, (1 - copyOut) * (1 - smoothstep(.46, .62, p)));
     setTransform(copy, `translate3d(0, ${-30 * copyOut}px, 0)`);
 
     const one = smoothstep(.10, .20, p) * (1 - smoothstep(.30, .43, p));
@@ -180,28 +208,35 @@
     const three = smoothstep(.50, .65, p) * (1 - smoothstep(.76, .92, p));
     const drift = deep * cfg.drift;
 
-    setOpacity(textOne, one);
-    setOpacity(textTwo, two);
-    setOpacity(textThree, three);
+    setOpacity(textOne, one * sceneFade);
+    setOpacity(textTwo, two * sceneFade);
+    setOpacity(textThree, three * sceneFade);
+
     setTransform(textOne, `translate3d(${drift * .18}px, ${-drift * .08}px, 0)`);
     setTransform(textTwo, `translate3d(${-drift * .12}px, ${-drift * .05}px, 0)`);
     setTransform(textThree, `translate3d(${drift * .10}px, ${-drift * .06}px, 0)`);
     setOpacity(scrollHint, 1 - smoothstep(.01, .08, p));
+
+    if (next) {
+      setOpacity(next, nextIn);
+      setTransform(next, `translate3d(0, ${(1 - nextIn) * 34}px, 0) scale(${.985 + nextIn * .015})`);
+      next.style.pointerEvents = nextIn > .98 ? 'auto' : 'none';
+    }
   }
 
   function loop(){
     raf = null;
     readProgress();
 
-    if (cfg.mode === 'mobile') {
-      // No damping mobile: il damping rincorreva lo scroll e creava scatti/flash a fine sticky.
+    if (cfg.smoothing === 1) {
       current = target;
     } else {
-      current += (target - current) * .18;
+      current += (target - current) * cfg.smoothing;
     }
 
     draw(current);
-    if (cfg.mode !== 'mobile' && Math.abs(target - current) > 0.001) {
+
+    if (cfg.smoothing !== 1 && Math.abs(target - current) > 0.001) {
       raf = requestAnimationFrame(loop);
     }
   }
@@ -216,13 +251,28 @@
       const nextW = window.innerWidth;
       const widthChanged = Math.abs(nextW - stableW) > 24;
 
-      // Su mobile ignoriamo i micro-resize della barra URL: sono la causa dei flash.
       if (cfg.mode !== 'mobile' || widthChanged) {
         stableW = nextW;
         setHeroHeight();
       }
+
       request();
     }, 180);
+  }
+
+  if (reduce) {
+    hero.style.height = 'auto';
+    setOpacity(base, 0);
+    setOpacity(sea, 0);
+    setOpacity(shell, 0);
+    setOpacity(trees, 0);
+    setOpacity(copy, 1);
+    setOpacity(textOne, 0);
+    setOpacity(textTwo, 0);
+    setOpacity(textThree, 0);
+    setOpacity(scrollHint, 0);
+    setOpacity(next, 1);
+    return;
   }
 
   setHeroHeight();
@@ -231,6 +281,7 @@
   window.addEventListener('scroll', request, { passive: true });
   window.addEventListener('resize', onResize, { passive: true });
 })();
+
 
 (function revealBlocks(){
   const items=document.querySelectorAll('.revealBlock, [data-parallax-text]');
