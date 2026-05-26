@@ -64,14 +64,14 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        height: 8.6,          // scroll più guidato
-        maxScale: 2.45,       // zoom mobile più percepibile
-        sceneY: 68,
+        height: 9.2,
+        maxScale: 4.2,
+        sceneY: 130,
         treeX: 10,            // alberi più a destra / dentro la scena
         treeY: 8,
         treeScale: 1.18,
         shellX: -18,
-        shellY: 106,
+        shellY: 150,
         shellScale: 1.34,
         drift: 34
       };
@@ -93,14 +93,14 @@
     }
     return {
       mode: 'desktop',
-      height: 4.8,
-      maxScale: 3.35,
-      sceneY: 116,
+      height: 5.6,
+      maxScale: 5.8,
+      sceneY: 320,
       treeX: 0,
       treeY: 88,
       treeScale: 1.95,
       shellX: -28,
-      shellY: 168,
+      shellY: 210,
       shellScale: 1.55,
       drift: 96
     };
@@ -138,9 +138,12 @@
     const isMobile = cfg.mode === 'mobile';
 
     // Su mobile la curva è più lunga e meno violenta: niente zoom aggressivo, niente rincorsa.
-    const zoom = isMobile ? smoothstep(.01, .74, p) : smoothstep(.05, .88, p);
+    const zoom = isMobile ? smoothstep(.04, .88, p) : smoothstep(.04, .90, p);
     const deep = isMobile ? zoom : Math.pow(zoom, 1.16);
-    const scale = 1 + deep * (cfg.maxScale - 1);
+    const finalBoost = cfg.mode === 'desktop'
+  ? smoothstep(.72, .98, p) * 4.2
+  : smoothstep(.82, .995, p) * 1.2;
+    const scale = 1 + deep * (cfg.maxScale - 1) + finalBoost;
     const y = -deep * cfg.sceneY;
 
     const baseOut = 1 - smoothstep(.08, .30, p);
