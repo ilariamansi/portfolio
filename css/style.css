@@ -1175,3 +1175,83 @@ body{color:var(--cream)!important;}
     justify-content:flex-end!important;
   }
 }
+
+/* === SAFE CASE STUDY MEDIA PAN: immagine lunga leggibile === */
+.caseStep.is-pannable{
+  min-height:calc(var(--pan-window) + var(--pan-extra) + 180px)!important;
+}
+
+.caseStep.is-pannable .caseStep__inner{
+  align-items:start!important;
+}
+
+.caseStep.is-pannable .caseStep__media{
+  position:sticky!important;
+  top:var(--sticky-top)!important;
+  height:var(--pan-window)!important;
+  overflow:hidden!important;
+  align-self:start!important;
+}
+
+.caseStep.is-pannable .caseStep__media img{
+  width:100%!important;
+  max-width:none!important;
+  transform:translate3d(0,var(--img-y),0)!important;
+  will-change:transform!important;
+}
+
+.caseStep.is-pannable .caseStep__text{
+  position:sticky!important;
+  top:var(--sticky-top)!important;
+  align-self:start!important;
+}
+
+@media(max-width:760px){
+  .caseStep.is-pannable{
+    min-height:auto!important;
+  }
+
+  .caseStep.is-pannable .caseStep__media,
+  .caseStep.is-pannable .caseStep__text{
+    position:relative!important;
+    top:auto!important;
+    height:auto!important;
+  }
+
+  .caseStep.is-pannable .caseStep__media img{
+    transform:none!important;
+  }
+}
+
+/* === FOOTER SAFE ALIGNMENT === */
+.siteFooter__contact{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:12px!important;
+  flex-wrap:wrap!important;
+}
+.siteFooter__iconLink{
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 42px!important;
+  width:42px!important;
+  height:42px!important;
+}
+.siteFooter__iconLink img{
+  width:22px!important;
+  height:22px!important;
+  object-fit:contain!important;
+}
+.siteFooter__contactText{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:42px!important;
+  padding:0 18px!important;
+  border:1px solid rgba(255,242,223,.38)!important;
+  border-radius:999px!important;
+  background:rgba(255,242,223,.10)!important;
+  color:var(--cream)!important;
+  white-space:nowrap!important;
+}

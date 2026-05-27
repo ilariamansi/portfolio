@@ -1788,3 +1788,60 @@ max-width:38rem;
     max-width:100%!important;
   }
 }
+
+/* === SAFE MOBILE HERO: usa mobile-scene.png come layer unico === */
+.artHero__mobileScene{
+  display:none;
+}
+
+@media(max-width:640px){
+  .artHero{
+    height:1080svh!important;
+    min-height:1080svh!important;
+  }
+
+  .artHero__base,
+  .artHero__sea,
+  .artHero__shell,
+  .artHero__trees{
+    display:none!important;
+  }
+
+  .artHero__mobileScene{
+    display:block!important;
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    width:122vw!important;
+    height:104svh!important;
+    max-width:none!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+    transform:translate3d(-50%,-50%,0) scale(1);
+    opacity:1;
+    z-index:1!important;
+    will-change:transform,opacity;
+    backface-visibility:hidden;
+    pointer-events:none;
+    user-select:none;
+  }
+
+  .artHero__scene::before{
+    z-index:4!important;
+  }
+
+  .artHero__scene::after{
+    z-index:5!important;
+  }
+
+  .artHero__sticky::after{
+    z-index:6!important;
+  }
+
+  .artHero__copy,
+  .artHero__text,
+  .artHero__scroll,
+  .artHero__next{
+    z-index:10!important;
+  }
+}
