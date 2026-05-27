@@ -73,9 +73,9 @@
         tunnelBoost: 1.45,
         sceneY: 95,
         sceneX: 0,
-        shellX: -10,
-        shellY: 82,
-        shellScale: .46,
+        shellX: 0,
+        shellY: 0,
+        shellScale: 1,
         drift: 34,
         smoothing: 1
       };
@@ -174,11 +174,10 @@
 
       if (mobileShell) {
         const shellMove = smoothstep(.28, .72, p);
-        const shellScale = cfg.shellScale + shellMove * .16 + tunnelSoft * .42;
-        const shellY = -shellMove * cfg.shellY - tunnelSoft * 90;
-        const shellX = cfg.shellX - shellMove * 14;
-        const shellRot = -10 - shellMove * 28 - tunnelSoft * 12;
-        setTransform(mobileShell, `translate3d(calc(-50% + ${shellX}px), calc(-50% + ${shellY}px), 0) rotate(${shellRot}deg) scale(${shellScale})`);
+        const shellRot = shellMove * 12 + tunnelSoft * 14;
+        const shellLift = shellMove * -10 + tunnelSoft * -48;
+        const shellScale = 1 + shellMove * .03 + tunnelSoft * .18;
+        setTransform(mobileShell, `translate3d(-50%, calc(-50% + ${shellLift}px), 0) rotate(${shellRot}deg) scale(${shellScale})`);
         setOpacity(mobileShell, (1 - shellOut) * sceneFade);
       }
 
