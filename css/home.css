@@ -1727,3 +1727,64 @@ max-width:38rem;
   color:#fff2df!important;
   text-shadow:0 2px 18px rgba(0,0,0,.28)!important;
 }
+
+
+/* === MOBILE TUNNEL + ROLE SECTION FIX === */
+@media (max-width:640px){
+  .artHero{
+    height:1180svh!important;
+    min-height:1180svh!important;
+  }
+
+  .artHero__base,
+  .artHero__sea{
+    width:124vw!important;
+    height:104svh!important;
+  }
+
+  .artHero__trees{
+    width:172vw!important;
+    height:104svh!important;
+  }
+
+  .artHero__shell{
+    width:116vw!important;
+    height:104svh!important;
+  }
+
+  .artHero__next{
+    min-height:100svh!important;
+    padding:calc(var(--nav-h) + 28px) var(--pad-x) max(42px, env(safe-area-inset-bottom))!important;
+    justify-content:center!important;
+  }
+
+  .homeRoles__grid{
+    display:block!important;
+    border-top:1px solid rgba(255,244,223,.22)!important;
+    border-bottom:1px solid rgba(255,244,223,.22)!important;
+  }
+
+  .homeRoles__grid article{
+    display:block!important;
+    width:100%!important;
+    min-height:auto!important;
+    padding:26px 0!important;
+    border:0!important;
+    border-bottom:1px solid rgba(255,244,223,.16)!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+
+  .homeRoles__grid article:last-child{
+    border-bottom:0!important;
+  }
+
+  .homeRoles__grid h3{
+    margin:0!important;
+  }
+
+  .homeRoles__grid p{
+    margin-top:12px!important;
+    max-width:100%!important;
+  }
+}

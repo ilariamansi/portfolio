@@ -66,19 +66,19 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        height: 10.4,
-        maxScale: 4.6,
-        tunnelBoost: 1.55,
-        sceneY: 150,
+        height: 11.8,
+        maxScale: 5.15,
+        tunnelBoost: 2.75,
+        sceneY: 210,
         sceneX: -18,
         treeX: 4,
-        treeY: 10,
-        treeScale: 1.18,
+        treeY: 12,
+        treeScale: 1.22,
         shellX: -18,
-        shellY: 165,
-        shellScale: 1.34,
+        shellY: 185,
+        shellScale: 1.38,
         drift: 34,
-        smoothing: 1
+        smoothing: .22
       };
     }
 
@@ -161,11 +161,11 @@
     const deep = isMobile ? zoom : Math.pow(zoom, 1.12);
 
     // Seconda accelerazione finale: non parte subito, quindi evita lo scatto secco.
-    const tunnel = smoothstep(.72, .965, p);
+    const tunnel = isMobile ? smoothstep(.70, .98, p) : smoothstep(.72, .965, p);
     const tunnelSoft = tunnel * tunnel * (3 - 2 * tunnel);
 
     const scale = 1 + deep * (cfg.maxScale - 1) + tunnelSoft * cfg.tunnelBoost;
-    const y = -deep * cfg.sceneY - tunnelSoft * (isMobile ? 58 : 150);
+    const y = -deep * cfg.sceneY - tunnelSoft * (isMobile ? 140 : 150);
     const sceneX = cfg.sceneX + (isMobile ? 0 : tunnelSoft * -8);
 
     const baseOut = 1 - smoothstep(.08, .30, p);
@@ -175,9 +175,9 @@
     const treeOut = isMobile ? smoothstep(.84, .99, p) : smoothstep(.80, .99, p);
 
     // Dissolve della scena, non "patina sopra".
-    const sceneFade = 1 - smoothstep(isMobile ? .86 : .84, .995, p);
-    const wash = smoothstep(isMobile ? .88 : .86, .995, p);
-    const nextIn = smoothstep(.84, .985, p);
+    const sceneFade = 1 - smoothstep(isMobile ? .88 : .84, .995, p);
+    const wash = smoothstep(isMobile ? .90 : .86, .995, p);
+    const nextIn = isMobile ? smoothstep(.88, .995, p) : smoothstep(.84, .985, p);
 
     setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
