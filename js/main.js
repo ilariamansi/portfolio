@@ -174,9 +174,11 @@
 
       if (mobileShell) {
         const shellMove = smoothstep(.28, .72, p);
-        const shellRot = shellMove * 12 + tunnelSoft * 14;
-        const shellLift = shellMove * -10 + tunnelSoft * -48;
-        const shellScale = 1 + shellMove * .03 + tunnelSoft * .18;
+        // Parte più bassa, vicino al margine come nella composizione mobile.
+        // Rotazione antioraria per nascondere meglio il taglio del PNG.
+        const shellRot = -(shellMove * 20 + tunnelSoft * 24);
+        const shellLift = -96 - shellMove * 34 - tunnelSoft * 78;
+        const shellScale = 1 + shellMove * .02 + tunnelSoft * .10;
         setTransform(mobileShell, `translate3d(-50%, calc(-50% + ${shellLift}px), 0) rotate(${shellRot}deg) scale(${shellScale})`);
         setOpacity(mobileShell, (1 - shellOut) * sceneFade);
       }
@@ -219,7 +221,7 @@
     setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(trees, `translate3d(calc(-50% + ${cfg.treeX + deep * -8}px), calc(-50% - ${deep * cfg.treeY}px), 0) scale(${1 + deep * (cfg.treeScale - 1)})`);
-    setTransform(shell, `translate3d(calc(-50% + ${cfg.shellX}px), calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${deep * 12}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
+    setTransform(shell, `translate3d(calc(-50% + ${cfg.shellX}px), calc(-50% - ${deep * cfg.shellY}px), 0) rotate(${-deep * 12}deg) scale(${1 + deep * (cfg.shellScale - 1)})`);
 
     setOpacity(base, baseOut * sceneFade);
     setOpacity(sea, sceneFade);
