@@ -607,10 +607,10 @@ body{
     --nav-fg:#fbf3e4;
 }
 .nav__logo .logo{
-    filter:brightness(0);
+    filter:none;
 }
 .nav.is-over-hero .nav__logo .logo{
-    filter:brightness(0) invert(1);
+    filter:none,  invert(1);
 }
 .nav__links a{
     color:var(--nav-fg);
