@@ -23,9 +23,6 @@ html {
     --paper-2: #ded1b8;
     --cream: #fff4df;
     --dark: #111312;
-    --accent: #9b544b;
-    --accent-2: #6b8496;
-    --accent-3: #dcc8a7;
     --sea: #6b8496;
     --olive: #68755e;
     --line: rgba(21, 26, 24, .15);
@@ -177,7 +174,7 @@ textarea {
 .nav__burgerIcon {
     width: 22px;
     height: 2px;
-    background: var(--ink);
+    background: var(--muted);
     position: relative;
     display: block
 }
@@ -1670,4 +1667,113 @@ p,.pageHero p,.contentGrid p,.contentGrid li,.homeProject__content p:not(.homePr
   .is-about .aboutBring__grid{
     grid-template-columns:1fr!important;
   }
+}
+
+
+/* === STABLE REPAIR 29/05 — ripristino layout senza smontare il sito === */
+body{font-weight:400!important;}
+.navOverlay{background:rgba(243,239,229,.92)!important;}
+.navOverlay__panel a{color:#1d2019!important;}
+
+.pageKicker,
+.pageHero h1,
+.contentGrid h2,
+.cvSkillList h3,
+.cvList h3,
+.contactClean__head h1,
+.aboutHero h1,
+.aboutSplit h2,
+.aboutStatement p,
+.aboutBring h2,
+.aboutBring__grid h3,
+.siteFooter__brand{
+  font-family:var(--font-serif)!important;
+  font-weight:400!important;
+}
+
+/* About: griglia unica, niente pezzi fuori asse */
+.is-about .pageHero,
+.is-about .contentSection{
+  width:100%!important;
+  max-width:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+.is-about .container,
+.is-about .aboutHero > .container,
+.is-about .aboutSplit > .container,
+.is-about .aboutStatement > .container,
+.is-about .aboutBring > .container{
+  width:min(var(--max),100%)!important;
+  margin-inline:auto!important;
+  padding-left:var(--pad-x)!important;
+  padding-right:var(--pad-x)!important;
+}
+.is-about .aboutHero{padding-top:calc(var(--nav-h) + 90px)!important;padding-bottom:clamp(74px,8vw,120px)!important;}
+.is-about .aboutHero__grid,
+.is-about .aboutSplit__grid,
+.is-about .aboutBring__layout{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  column-gap:clamp(20px,3vw,42px)!important;
+  row-gap:clamp(28px,4vw,56px)!important;
+  align-items:start!important;
+}
+.is-about .aboutHero__intro{grid-column:1 / span 7!important;}
+.is-about .aboutHero__note{grid-column:9 / span 4!important;align-self:end!important;justify-self:stretch!important;max-width:none!important;}
+.is-about .aboutHero h1{font-size:clamp(54px,5.7vw,102px)!important;line-height:.96!important;letter-spacing:-.04em!important;max-width:12.5ch!important;}
+.is-about .aboutHero__note p{font-size:clamp(16px,1.2vw,20px)!important;line-height:1.72!important;color:var(--muted)!important;}
+.is-about .aboutSplit h2{grid-column:1 / span 4!important;font-size:clamp(46px,4.8vw,86px)!important;line-height:.98!important;letter-spacing:-.04em!important;margin:0!important;}
+.is-about .aboutSplit .aboutText{grid-column:6 / span 6!important;max-width:760px!important;}
+.is-about .aboutText p{font-size:clamp(16px,1.1vw,18px)!important;line-height:1.78!important;margin:0 0 1.15em!important;color:var(--muted)!important;}
+.is-about .aboutStatement .container{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important;}
+.is-about .aboutStatement p{grid-column:2 / span 9!important;margin:0!important;font-size:clamp(42px,5vw,88px)!important;line-height:1.02!important;letter-spacing:-.04em!important;color:var(--cream)!important;}
+.is-about .aboutBring{background:rgba(34,36,31,.22)!important;}
+.is-about .aboutBring__head{grid-column:1 / span 4!important;}
+.is-about .aboutBring__grid{grid-column:6 / span 7!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important;}
+.is-about .aboutBring__grid article{padding:clamp(24px,2.5vw,36px)!important;border-radius:22px!important;background:rgba(255,244,223,.07)!important;border:1px solid rgba(255,244,223,.16)!important;box-shadow:none!important;}
+.is-about .aboutBring__grid h3{font-size:clamp(30px,2.8vw,48px)!important;line-height:1!important;margin:0 0 14px!important;color:var(--cream)!important;}
+.is-about .aboutBring__grid p{font-size:15px!important;line-height:1.65!important;color:var(--muted)!important;}
+@media(max-width:900px){
+  .is-about .aboutHero{padding-top:calc(var(--nav-h) + 54px)!important;}
+  .is-about .aboutHero__grid,
+  .is-about .aboutSplit__grid,
+  .is-about .aboutBring__layout,
+  .is-about .aboutStatement .container{grid-template-columns:1fr!important;}
+  .is-about .aboutHero__intro,
+  .is-about .aboutHero__note,
+  .is-about .aboutSplit h2,
+  .is-about .aboutSplit .aboutText,
+  .is-about .aboutStatement p,
+  .is-about .aboutBring__head,
+  .is-about .aboutBring__grid{grid-column:auto!important;}
+  .is-about .aboutHero h1{font-size:clamp(42px,11.5vw,72px)!important;max-width:11ch!important;}
+  .is-about .aboutBring__grid{grid-template-columns:1fr!important;}
+}
+
+/* CV: competenze di nuovo in box, esperienze ordinate */
+.is-cv .contentSection--tone.cvSection{background:#42483f!important;}
+.cvSkillList{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;}
+.cvSkillList article{padding:clamp(24px,2.6vw,38px)!important;border-radius:22px!important;background:rgba(255,244,223,.075)!important;border:1px solid rgba(255,244,223,.16)!important;box-shadow:none!important;}
+.cvSkillList small{display:block!important;margin-bottom:12px!important;color:rgba(255,244,223,.62)!important;}
+.cvSkillList h3,.cvList h3{font-size:clamp(30px,2.7vw,48px)!important;line-height:1.02!important;letter-spacing:-.035em!important;color:var(--cream)!important;margin:0 0 10px!important;}
+.cvSkillList p,.cvList p{color:var(--muted)!important;line-height:1.72!important;}
+.cvMeta{color:rgba(255,244,223,.76)!important;font-weight:600!important;}
+@media(max-width:900px){.cvSkillList{grid-template-columns:1fr!important;}}
+
+/* Contact: layout leggibile e lineare */
+.is-contact .contactClean{min-height:calc(100vh - var(--nav-h))!important;display:grid!important;align-items:center!important;padding:calc(var(--nav-h) + 72px) 0 clamp(80px,9vw,130px)!important;}
+.is-contact .contactClean__inner{display:grid!important;grid-template-columns:minmax(0,.82fr) minmax(340px,.66fr)!important;gap:clamp(44px,8vw,128px)!important;align-items:end!important;}
+.is-contact .contactClean__head h1{font-size:clamp(58px,7.4vw,124px)!important;line-height:.9!important;letter-spacing:-.04em!important;max-width:9ch!important;margin:0!important;}
+.is-contact .contactClean__head p:not(.pageKicker){max-width:560px!important;color:var(--muted)!important;}
+.is-contact .contactLineForm{display:grid!important;gap:28px!important;width:100%!important;max-width:580px!important;justify-self:end!important;}
+.is-contact .contactLineForm label{display:grid!important;gap:8px!important;}
+.is-contact .contactLineForm span{font-size:11px!important;font-weight:800!important;letter-spacing:.16em!important;text-transform:uppercase!important;color:rgba(255,244,223,.62)!important;}
+.is-contact .contactLineForm input,
+.is-contact .contactLineForm textarea{width:100%!important;border:0!important;border-bottom:1px solid rgba(255,244,223,.42)!important;background:transparent!important;border-radius:0!important;color:var(--cream)!important;padding:12px 0!important;outline:none!important;}
+.is-contact .contactLineForm__actions{display:flex!important;flex-wrap:wrap!important;gap:12px!important;margin-top:8px!important;}
+@media(max-width:900px){
+  .is-contact .contactClean{align-items:start!important;padding-top:calc(var(--nav-h) + 54px)!important;}
+  .is-contact .contactClean__inner{grid-template-columns:1fr!important;gap:42px!important;}
+  .is-contact .contactLineForm{justify-self:stretch!important;max-width:none!important;}
 }

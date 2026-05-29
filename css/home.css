@@ -118,7 +118,7 @@
     position: absolute;
     z-index: 7;
     left: var(--pad-x);
-    bottom: clamp(54px, 7vw, 104px);
+    bottom: clamp(86px, 9vw, 132px);
     width: min(1040px, calc(100vw - var(--pad-x) * 2));
     opacity: var(--copy-opacity);
     transform: translateY(var(--copy-y))
@@ -2044,4 +2044,24 @@ max-width:38rem;
   .homeRoles__grid p{
     max-width:none!important;
   }
+}
+
+
+/* === STABLE REPAIR 29/05 — hero/progetti senza smontare il resto === */
+.artHero__scroll span{color:rgba(255,244,223,.84)!important;}
+@media(max-width:640px){
+  .artHero__scroll{left:50%!important;right:auto!important;width:100%!important;padding:0 24px!important;text-align:center!important;transform:translateX(-50%)!important;}
+  .artHero__scroll span{display:block!important;text-align:center!important;margin:0 auto!important;color:rgba(255,244,223,.84)!important;}
+}
+
+/* Project media pan: testo fermo, immagine lunga leggibile */
+.caseStep.is-pannable .caseStep__inner{align-items:start!important;}
+.caseStep.is-pannable .caseStep__media{position:sticky!important;top:var(--sticky-top,118px)!important;height:var(--pan-window,70vh)!important;overflow:hidden!important;transform:none!important;opacity:1!important;}
+.caseStep.is-pannable .caseStep__media img{width:100%!important;height:auto!important;max-width:none!important;transform:translate3d(0,var(--img-y,0px),0)!important;transition:none!important;will-change:transform!important;}
+.caseStep.is-pannable .caseStep__text{position:sticky!important;top:var(--sticky-top,118px)!important;align-self:start!important;}
+@media(max-width:900px){
+  .caseStep.is-pannable{min-height:auto!important;}
+  .caseStep.is-pannable .caseStep__media,
+  .caseStep.is-pannable .caseStep__text{position:relative!important;top:auto!important;height:auto!important;}
+  .caseStep.is-pannable .caseStep__media img{transform:none!important;}
 }

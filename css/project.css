@@ -259,25 +259,7 @@
   color: var(--muted)
 }
 
-.project--lmsc {
-  --accent: #c8531e;
-  --accent-2: #ccb000
-}
 
-.project--lookbook {
-  --accent: #0e654e;
-  --accent-2: #d38473
-}
-
-.project--meditactive {
-  --accent: #224736;
-  --accent-2: #884556
-}
-
-.project--ecodream {
-  --accent: #9f4b3f;
-  --accent-2: #697259
-}
 
 @media(max-width:900px) {
 
@@ -347,30 +329,9 @@
   background: linear-gradient(90deg, transparent, rgba(17, 19, 18, .12), transparent);
 }
 
-.caseStep__label,
-.projectHero__kicker {
-  color: var(--accent);
-}
 
-.project--lmsc {
-  --accent: #9b544b;
-  --accent-2: #dcc8a7
-}
 
-.project--lookbook {
-  --accent: #68755e;
-  --accent-2: #9b544b
-}
 
-.project--meditactive {
-  --accent: #68755e;
-  --accent-2: #6b8496
-}
-
-.project--ecodream {
-  --accent: #9b544b;
-  --accent-2: #68755e
-}
 
 
 /* === v10 project pager and palette details === */
