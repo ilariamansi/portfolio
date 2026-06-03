@@ -147,9 +147,9 @@
   function draw(p){
     const isMobile = cfg.mode === 'mobile';
 
-    const copyOut = smoothstep(.04, .18, p);
-    const one = smoothstep(.22, .34, p) * (1 - smoothstep(.43, .56, p));
-    const two = smoothstep(.42, .55, p) * (1 - smoothstep(.66, .78, p));
+  const copyOut = smoothstep(.025, .12, p);
+const one = smoothstep(.10, .20, p) * (1 - smoothstep(.30, .42, p));
+const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     const three = smoothstep(.60, .72, p) * (1 - smoothstep(.82, .94, p));
 
     if (isMobile && mobileScene) {
