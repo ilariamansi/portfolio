@@ -1638,7 +1638,8 @@ max-width:38rem;
   .artHero__text--two p{
     font-size:clamp(36px,10.8vw,50px)!important;
     line-height:.92!important;
-    max-width:13.5ch!important;
+    max-width:10.5ch!important;
+    letter-spacing: 0.01em;
   }
 
   .artHero__next{

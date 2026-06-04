@@ -1777,3 +1777,14 @@ body{font-weight:400!important;}
   .is-contact .contactClean__inner{grid-template-columns:1fr!important;gap:42px!important;}
   .is-contact .contactLineForm{justify-self:stretch!important;max-width:none!important;}
 }
+/* === LOGO COLOR FIX === */
+.nav__logo .logo,
+.nav.is-over-hero .nav__logo .logo,
+.siteFooter__logo img,
+.siteFooter__iconLink img {
+  filter: none !important;
+}
+.siteFooter__iconLink img{
+  opacity:.9;
+  filter:brightness(0) saturate(100%) invert(95%) sepia(22%) saturate(395%) hue-rotate(312deg) brightness(103%) contrast(102%) !important;
+}
