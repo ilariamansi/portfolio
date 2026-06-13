@@ -216,7 +216,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     const treeOut = smoothstep(.80, .99, p);
     const sceneFade = 1 - smoothstep(.84, .995, p);
     const wash = smoothstep(.86, .995, p);
-    const nextIn = smoothstep(.84, .985, p);
+    const nextIn = smoothstep(.94, .985, p);
 
     setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
