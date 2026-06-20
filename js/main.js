@@ -68,7 +68,7 @@
     if (w <= 640) {
       return {
         mode: 'mobile',
-        height: 11.2,
+        height: 13.2,
         maxScale: 3.7,
         tunnelBoost: 1.45,
         sceneY: 95,
@@ -83,7 +83,7 @@
     if (w <= 900) {
       return {
         mode: 'tablet',
-        height: 8.2,
+        height: 9.8,
         maxScale: 3.2,
         tunnelBoost: 1.7,
         sceneY: 116,
@@ -100,7 +100,7 @@
     }
     return {
       mode: 'desktop',
-      height: 8.2,
+      height: 10.4,
       maxScale: 5.4,
       tunnelBoost: 3.6,
       sceneY: 330,
@@ -159,9 +159,9 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
       const tunnelSoft = tunnel * tunnel * (3 - 2 * tunnel);
       const scale = 1 + tunnelSoft * cfg.maxScale + smoothstep(.82, .995, p) * cfg.tunnelBoost;
       const y = -tunnelSoft * cfg.sceneY;
-      const sceneFade = 1 - smoothstep(.88, .995, p);
-      const wash = smoothstep(.90, .995, p);
-      const nextIn = smoothstep(.78, .92, p);
+      const sceneFade = 1 - smoothstep(.76, .90, p);
+      const wash = smoothstep(.78, .90, p);
+      const nextIn = smoothstep(.80, .88, p);
       const shellOut = smoothstep(.55, .82, p);
 
       setOpacity(base, 0);
@@ -174,13 +174,12 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
 
       if (mobileShell) {
         const shellMove = smoothstep(.28, .72, p);
-        // La conchiglia mobile usa il posizionamento CSS storico:
-        // left:34vw; bottom:-2vw; width:78vw.
-        // Non usare translate(-50%, -50%): la spostava fuori dalla scena.
+        // Parte più bassa, vicino al margine come nella composizione mobile.
+        // Rotazione antioraria per nascondere meglio il taglio del PNG.
         const shellRot = -(shellMove * 20 + tunnelSoft * 24);
-        const shellLift = -(shellMove * 34 + tunnelSoft * 78);
+        const shellLift = -96 - shellMove * 34 - tunnelSoft * 78;
         const shellScale = 1 + shellMove * .02 + tunnelSoft * .10;
-        setTransform(mobileShell, `translate3d(0, ${shellLift}px, 0) rotate(${shellRot}deg) scale(${shellScale})`);
+        setTransform(mobileShell, `translate3d(-50%, calc(-50% + ${shellLift}px), 0) rotate(${shellRot}deg) scale(${shellScale})`);
         setOpacity(mobileShell, (1 - shellOut) * sceneFade);
       }
 
@@ -188,7 +187,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
       hero.style.setProperty('--cinematic-opacity', '0');
 
       setOpacity(copy, (1 - copyOut) * (1 - smoothstep(.18, .26, p)));
-      setTransform(copy, `translate3d(0, ${-24 * copyOut}px, 0)`);
+      setTransform(copy, `translate(-50%, -50%) translate3d(0, ${-24 * copyOut}px, 0)`);
       const drift = tunnelSoft * cfg.drift;
       setOpacity(textOne, one * sceneFade);
       setOpacity(textTwo, two * sceneFade);
@@ -199,7 +198,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
       setOpacity(scrollHint, 1 - smoothstep(.01, .08, p));
       if (next) {
         setOpacity(next, nextIn);
-        setTransform(next, `translate3d(0, ${(1 - nextIn) * 56}px, 0)`);
+        setTransform(next, `translate3d(0, ${(1 - nextIn) * 28}px, 0)`);
         next.style.pointerEvents = nextIn > .98 ? 'auto' : 'none';
       }
       return;
@@ -215,9 +214,9 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     const baseOut = 1 - smoothstep(.08, .30, p);
     const shellOut = smoothstep(.36, .66, p);
     const treeOut = smoothstep(.80, .99, p);
-    const sceneFade = 1 - smoothstep(.84, .995, p);
-    const wash = smoothstep(.86, .995, p);
-    const nextIn = smoothstep(.82, .94, p);
+    const sceneFade = 1 - smoothstep(.76, .90, p);
+    const wash = smoothstep(.78, .90, p);
+    const nextIn = smoothstep(.80, .88, p);
 
     setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
@@ -232,7 +231,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     hero.style.setProperty('--cinematic-opacity', '0');
 
     setOpacity(copy, (1 - copyOut) * (1 - smoothstep(.46, .62, p)));
-    setTransform(copy, `translate3d(0, ${-30 * copyOut}px, 0)`);
+    setTransform(copy, `translate(-50%, -50%) translate3d(0, ${-30 * copyOut}px, 0)`);
     const drift = deep * cfg.drift;
     setOpacity(textOne, one * sceneFade);
     setOpacity(textTwo, two * sceneFade);
@@ -244,7 +243,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
 
     if (next) {
       setOpacity(next, nextIn);
-      setTransform(next, `translate3d(0, ${(1 - nextIn) * 70}px, 0) scale(${.985 + nextIn * .015})`);
+      setTransform(next, `translate3d(0, ${(1 - nextIn) * 34}px, 0) scale(${.985 + nextIn * .015})`);
       next.style.pointerEvents = nextIn > .98 ? 'auto' : 'none';
     }
   }
