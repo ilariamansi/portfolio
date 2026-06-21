@@ -979,17 +979,17 @@ body.is-home {
 
 .artHero__copy h1 {
   white-space: nowrap;
-  font-size: clamp(48px, 12.5vw, 62px) !important;
+  font-size: clamp(42px, 12.5vw, 56px) !important;
 }
 
 .artHero__copy p {
-  max-width: 34ch !important;
+  max-width: 60ch !important;
   margin-inline: auto !important;
 }
 
 .artHero__mobileShell {
-  left: 50% !important;
-  bottom: 18vh !important;
+  left: 60% !important;
+  bottom: 28vh !important;
   width: 58vw !important;
   transform: translateX(-74%) !important;
 }
