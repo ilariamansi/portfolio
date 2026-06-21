@@ -988,8 +988,8 @@ body.is-home {
 }
 
 .artHero__mobileShell {
-  left: 36% !important;
-  bottom: 18vh !important;
+  left: 6% !important;
+  bottom: 48vh !important;
   width: 58vw !important;
   transform: translateX(-74%) !important;
 }
