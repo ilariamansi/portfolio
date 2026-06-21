@@ -964,4 +964,33 @@ body.is-home {
   .artHero__tagline{
     text-align:center !important;
   }
+  .artHero__sticky {
+  height: 100svh !important;
+}
+
+.artHero__copy {
+  left: 50% !important;
+  top: 58% !important;
+  bottom: auto !important;
+  width: min(92vw, 520px) !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+}
+
+.artHero__copy h1 {
+  white-space: nowrap;
+  font-size: clamp(48px, 12.5vw, 62px) !important;
+}
+
+.artHero__copy p {
+  max-width: 34ch !important;
+  margin-inline: auto !important;
+}
+
+.artHero__mobileShell {
+  left: 50% !important;
+  bottom: 18vh !important;
+  width: 58vw !important;
+  transform: translateX(-74%) !important;
+}
 }
