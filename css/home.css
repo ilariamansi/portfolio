@@ -966,11 +966,15 @@ body.is-home {
   }
   .artHero__sticky {
   height: 100svh !important;
+   }
+  .artHero__next .homeActions{
+  margin-top: 30%;
+}
 }
 
 .artHero__copy {
   left: 50% !important;
-  top: 58% !important;
+  top: 54% !important;
   bottom: auto !important;
   width: min(92vw, 520px) !important;
   transform: translate(-50%, -50%) !important;
@@ -988,8 +992,8 @@ body.is-home {
 }
 
 .artHero__mobileShell {
-  left: 6% !important;
-  bottom: 48vh !important;
+  left: 26% !important;
+  bottom: 55vh !important;
   width: 58vw !important;
   transform: translateX(-74%) !important;
 }
