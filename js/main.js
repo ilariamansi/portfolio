@@ -206,7 +206,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
 
     const zoom = smoothstep(.04, .90, p);
     const deep = Math.pow(zoom, 1.12);
-    const tunnel = smoothstep(.72, .965, p);
+    const tunnel = smoothstep(.54, .985, p);
     const tunnelSoft = tunnel * tunnel * (3 - 2 * tunnel);
     const scale = 1 + deep * (cfg.maxScale - 1) + tunnelSoft * cfg.tunnelBoost;
     const y = -deep * cfg.sceneY - tunnelSoft * 150;
