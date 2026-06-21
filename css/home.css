@@ -974,7 +974,7 @@ body.is-home {
 
 .artHero__copy {
   left: 50% !important;
-  top: 54% !important;
+  top: 50% !important;
   bottom: auto !important;
   width: min(92vw, 520px) !important;
   transform: translate(-50%, -50%) !important;
@@ -983,18 +983,17 @@ body.is-home {
 
 .artHero__copy h1 {
   white-space: nowrap;
-  font-size: clamp(42px, 11vw, 56px) !important;
+  font-size: clamp(58px, 12.8vw, 82px) !important;
 }
 
 .artHero__copy p {
-  max-width: 60ch !important;
+  max-width: 80ch !important;
   margin-inline: auto !important;
 }
 
 .artHero__mobileShell {
-  left: 26% !important;
-  bottom: 55vh !important;
-  width: 58vw !important;
+  left: 32% !important;
+  bottom: 60vh !important;
+  width: 65vw !important;
   transform: translateX(-74%) !important;
-}
 }
