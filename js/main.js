@@ -155,13 +155,13 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     if (isMobile && mobileScene) {
       // Mobile: scena unica già adattata, più una conchiglia separata leggera.
       // La scena resta quasi ferma dopo il primo testo; lo zoom tunnel parte solo più avanti.
-      const tunnel = smoothstep(.66, .985, p);
+      const tunnel = smoothstep(.58, .97, p);
       const tunnelSoft = tunnel * tunnel * (3 - 2 * tunnel);
       const scale = 1 + tunnelSoft * cfg.maxScale + smoothstep(.82, .995, p) * cfg.tunnelBoost;
       const y = -tunnelSoft * cfg.sceneY;
-      const sceneFade = 1 - smoothstep(.86, .90, p);
-      const wash = smoothstep(.78, .90, p);
-      const nextIn = smoothstep(.90, .98, p);
+      const sceneFade = 1 - smoothstep(.88, .99, p);
+      const wash = smoothstep(.84, .99, p);
+      const nextIn = smoothstep(.91, .995, p);
       const shellOut = smoothstep(.55, .82, p);
 
       setOpacity(base, 0);
@@ -215,8 +215,8 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     const shellOut = smoothstep(.36, .66, p);
     const treeOut = smoothstep(.80, .99, p);
     const sceneFade = 1 - smoothstep(.76, .90, p);
-    const wash = smoothstep(.78, .90, p);
-    const nextIn = smoothstep(.90, .98, p);
+    const wash = smoothstep(.84, .99, p);
+    const nextIn = smoothstep(.91, .995, p);
 
     setTransform(base, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
     setTransform(sea, `translate3d(calc(-50% + ${sceneX}px), calc(-50% + ${y}px), 0) scale(${scale})`);
