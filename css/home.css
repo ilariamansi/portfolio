@@ -674,7 +674,12 @@ body.is-home {
     align-content: center;
     gap: 22px;
   }
-
+ .artHero__scene::before {
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, 0.135) 38%, rgba(0, 0, 0, 0)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, .025) 44%, rgba(0, 0, 0, 0.112));
+}
   .artHero__next .eyebrow,
   .artHero__next h2,
   .artHero__next > p:not(.eyebrow),
@@ -796,7 +801,7 @@ body.is-home {
   .artHero__copy {
     left: 50%;
     right: auto;
-    top: 57%;
+    top: 59%;
     z-index: 12;
     width: 100vw;
     max-width: 100vw;
@@ -862,7 +867,12 @@ body.is-home {
     bottom: 17vh;
     text-align: left;
   }
-
+ .artHero__scene::before {
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, 0.135) 38%, rgba(0, 0, 0, 0)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, .025) 44%, rgba(0, 0, 0, 0.112));
+}
   .artHero__next {
     align-content: start;
     padding: calc(var(--nav-h) + 48px) var(--pad-x) max(42px, env(safe-area-inset-bottom));
