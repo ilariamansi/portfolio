@@ -155,7 +155,7 @@ const two = smoothstep(.28, .40, p) * (1 - smoothstep(.58, .72, p));
     if (isMobile && mobileScene) {
       // Mobile: scena unica già adattata, più una conchiglia separata leggera.
       // La scena resta quasi ferma dopo il primo testo; lo zoom tunnel parte solo più avanti.
-      const tunnel = smoothstep(.58, .97, p);
+      const tunnel = smoothstep(.68, .97, p);
       const tunnelSoft = tunnel * tunnel * (3 - 2 * tunnel);
       const scale = 1 + tunnelSoft * cfg.maxScale + smoothstep(.82, .995, p) * cfg.tunnelBoost;
       const y = -tunnelSoft * cfg.sceneY;
