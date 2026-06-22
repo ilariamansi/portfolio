@@ -125,6 +125,8 @@ body.is-home {
   opacity: var(--shell-opacity);
   transform: translate3d(-50%, calc(-50% + var(--shell-y)), 0) rotate(var(--shell-rotate)) scale(var(--shell-scale));
   transform-origin: 50% 66%;
+  width: 110vw;
+  left: 47%;
 }
 
 .artHero__trees {
@@ -151,8 +153,8 @@ body.is-home {
 .artHero__scene::before {
   z-index: 4;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, .015) 38%, rgba(0, 0, 0, .22)),
-    linear-gradient(180deg, rgba(0, 0, 0, .12), rgba(0, 0, 0, .025) 44%, rgba(0, 0, 0, .30));
+    linear-gradient(90deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, 0.135) 38%, rgba(0, 0, 0, 0)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, .025) 44%, rgba(0, 0, 0, 0.112));
 }
 
 .artHero__scene::after {
@@ -179,7 +181,7 @@ body.is-home {
   z-index: 12;
   left: 50%;
   right: auto;
-  top: 53%;
+  top: 54%;
   width: min(1180px, calc(100vw - var(--pad-x) * 2));
   margin: 0;
   padding: 0;
@@ -226,8 +228,8 @@ body.is-home {
   letter-spacing: .11em;
   text-align: center;
   text-transform: uppercase;
-  color: rgb(255, 242, 223);
-  text-shadow: 0 8px 34px rgba(0, 0, 0, .42);
+  color: var(--cream);
+  text-shadow: 0 8px 34px rgba(0, 0, 0, 0.68);
 }
 
 .artHero__text {
@@ -247,7 +249,7 @@ body.is-home {
   line-height: 1.2;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: rgba(255, 242, 223, .78);
+  color: var(--cream);
 }
 
 .artHero__text--one {
@@ -284,7 +286,7 @@ body.is-home {
 
 .artHero__scroll {
   position: absolute;
-  z-index: 10;
+  z-index: 23;
   left: 50%;
   bottom: 18px;
   transform: translateX(-50%);
@@ -771,7 +773,7 @@ body.is-home {
     left: 30vw;
     top: 63%;
     z-index: 18;
-    width: 70vw;
+    width: 90vw;
     height: auto;
     max-width: none;
     object-fit: contain;
