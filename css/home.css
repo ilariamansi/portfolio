@@ -791,7 +791,7 @@ body.is-home {
   }
 
   .artHero__scene::before {
-    background: linear-gradient(90deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .01) 48%, rgba(0, 0, 0, .18));
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.091), rgba(0, 0, 0, 0.091) 48%, rgba(0, 0, 0, .18));
   }
 
   .artHero__scene::after {
@@ -870,7 +870,7 @@ body.is-home {
  .artHero__scene::before {
   z-index: 4;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, 0.135) 38%, rgba(0, 0, 0, 0)),
+    linear-gradient(90deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, 0.135) 38%, rgba(0, 0, 0, 0.08)),
     linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, .025) 44%, rgba(0, 0, 0, 0.112));
 }
   .artHero__next {
